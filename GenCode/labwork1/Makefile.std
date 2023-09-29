@@ -1,0 +1,25 @@
+# select architecture
+HOST=$(shell hostname)
+#ifeq ($(findstring siame,$(HOST)),siame)
+#ARCH=arm-none-eabi-
+CFLAGS=-g3 -fno-stack-protector -marm
+#else
+ARCH=arm-linux-gnueabi-
+#CFLAGS=-g3 -fno-stack-protector -marm -march=armv5t
+#endif
+
+# commands
+CC=$(ARCH)gcc
+LDFLAGS=-nostartfiles -static -T ../link-flash.ld
+
+# work variable
+OBJECTS=$(SOURCES:.c=.o)
+CLEAN=$(OBJECTS) $(PROGRAM).elf
+
+all: $(PROGRAM).elf
+
+$(PROGRAM).elf: $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LDFLAGS)
+
+clean:
+	rm -rf $(CLEAN)
