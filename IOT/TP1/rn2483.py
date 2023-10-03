@@ -60,10 +60,33 @@ print("Preparing to join the network")
 print(send("mac join otaa"))
 
 period = 3
+
+
 while True:
-   msg="hello-01" 
+   msg="oui1"
    print(sp.read_all().decode("utf-8"))
    print("Sending message: " + str(msg.encode('utf-8').hex()) + " to broker")
    print(send("mac tx cnf 220 " + msg.encode('utf-8').hex()))
    print("Waiting for " + str(period) + "s before sending again")
    time.sleep(period)
+
+# i=0
+# loop = False
+# while i<30:
+#    msg="oui1" 
+#    rcv = sp.read_all().decode("utf-8")
+#    print(rcv)
+#    if rcv == ("accepted\n"):
+#       loop = True
+#    if rcv == ("denied\n"):
+#       print("cpt")
+#       break
+#    if loop:
+#       print("Sending message: " + str(msg.encode('utf-8').hex()) + " to broker")
+#       print(send("mac tx cnf 220 " + msg.encode('utf-8').hex()))
+#       print("Waiting for " + str(period) + "s before sending again")
+#       i+=1
+#       time.sleep(period)
+#    time.sleep(0.5)
+#    print("a")
+# print ("nsm")
