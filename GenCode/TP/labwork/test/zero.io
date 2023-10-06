@@ -1,0 +1,4 @@
+
+auto A
+
+	state S:

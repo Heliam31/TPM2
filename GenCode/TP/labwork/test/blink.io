@@ -1,0 +1,22 @@
+const GREEN = 12
+
+const GPIOD_BASE = 0x40020C00
+
+const GPIO_MODER_OUT = 0b01
+
+reg GPIOD_MODER	@ GPIOD_BASE + 0x00
+reg GPIOD_ODR 	@ GPIOD_BASE + 0x14
+reg GPIOD_BSRR	@ GPIOD_BASE + 0x18
+
+auto blink
+	GPIOD_MODER[4*GREEN+3 .. 4*GREEN] = GPIO_MODER_OUT
+
+	state OFF:
+		GPIOD_ODR[GREEN..GREEN] = 0
+		goto ON
+
+	state ON:
+		GPIOD_ODR[GREEN..GREEN] = 1
+		goto OFF
+
+

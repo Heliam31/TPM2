@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "optional": "cpp",
+        "array": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp"
+    }
+}
