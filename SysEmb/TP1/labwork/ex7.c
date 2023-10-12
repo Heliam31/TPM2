@@ -22,6 +22,17 @@
 void handle_button() {
 }
 
+void init_TIM4(){
+	DISABLE_IRQS;
+	//Butt mapped to PA0/EXTI0
+	//config EXTI for GPIOA(0)
+	SYSCFG_EXTICR1 = REP_BITS(SYSCFG_EXTICR1, 0, 4, 0);
+	EXTI_RTSR |= 1 << 0; //rising edge
+	EXTI_FTSR |= 1 << 0; //falling edge
+	EXTI_IMR |= 1 << 0; //enable
+	EXTI_PR |= 1 << 0; //clear pending
+}
+
 int main() {
 	printf("\nStarting...\n");
 
