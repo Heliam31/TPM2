@@ -42,7 +42,7 @@
 %token<char *> ID
 %token<long int> INT
 %type<int> line
-%type<Expression *> expr
+%type<Expression *> expr atom
 %type<Statement *> opt_stmts stmts stmt
 %type<bool> opt_not
 %type<Condition *> cond
@@ -86,6 +86,7 @@
 %left '&'
 %left '|' '^'
 %left LT2 GT2 LT3 GT3
+
 
 %%
 
@@ -293,30 +294,8 @@ cond:
 ;
 
 expr:
-	INT line
-		{ $$ = new ConstExpr($1); $$->setLine($2); }
-|	ID line
-		{
-			auto d = checkMem($1, $2);
-			$$ = new MemExpr(d);
-			$$->setLine($2);
-			free($1);
-		}
-
-|	expr '[' expr ']'
-		{ $$ = new BitFieldExpr($1, $3, $3); $$->pos = $1->pos;  }
-
-|	expr '[' expr DOTDOT expr ']'
-		{ $$ = new BitFieldExpr($1, $3, $5); $$->pos = $1->pos;  }
-
-|	line '~' expr
-		{ $$ = new UnopExpr(UnopExpr::INV, $3); $$->setLine($1); }
-
-|	line '-' expr
-		{ $$ = new UnopExpr(UnopExpr::NEG, $3); $$->setLine($1); }
-
-|	'+' expr
-		{ $$ = $2; }
+	atom
+		{ $$ = $1; }
 |	expr '+' line expr
 		{ $$ = new BinopExpr(BinopExpr::ADD, $1, $4); $$->setLine($3); }
 |	expr '-' line expr
@@ -341,6 +320,34 @@ expr:
 		{ $$ = new BinopExpr(BinopExpr::ROL, $1, $4); $$->setLine($3); }
 |	expr GT3 line expr
 		{ $$ = new BinopExpr(BinopExpr::ROR, $1, $4); $$->setLine($3); }
+;
+
+atom:
+	INT line
+		{ $$ = new ConstExpr($1); $$->setLine($2); }
+|	ID line
+		{
+			auto d = checkMem($1, $2);
+			$$ = new MemExpr(d);
+			$$->setLine($2);
+			free($1);
+		}
+
+|	atom '[' expr ']'
+		{ $$ = new BitFieldExpr($1, $3, $3); $$->pos = $1->pos;  }
+
+|	atom '[' expr DOTDOT expr ']'
+		{ $$ = new BitFieldExpr($1, $3, $5); $$->pos = $1->pos;  }
+
+|	'~' line atom
+		{ $$ = new UnopExpr(UnopExpr::INV, $3); $$->setLine($2); }
+
+|	'-' line atom
+		{ $$ = new UnopExpr(UnopExpr::NEG, $3); $$->setLine($2); }
+
+|	'+' line atom
+		{ $$ = $3; }
 |	'(' expr ')'
 		{ $$ = $2; }
 ;
+

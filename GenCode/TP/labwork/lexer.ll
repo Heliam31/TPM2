@@ -36,8 +36,8 @@ syms [=@\[\]!:=<>()&|^+%/~\-\*]
 "/*"	{ BEGIN(ccom); }
 
 {dec}	{ yylval.INT = strtol(yytext, NULL, 10); return INT; }
-{hex}	{ yylval.INT = strtol(yytext, NULL, 16); return INT; }
-{bin}	{ yylval.INT = strtol(yytext, NULL, 2); return INT; }
+{hex}	{ yylval.INT = strtol(yytext+2, NULL, 16); return INT; }
+{bin}	{ yylval.INT = strtol(yytext+2, NULL, 2); return INT; }
 
 "and"	{ return AND; }
 "auto"	{ return AUTO; }
@@ -70,3 +70,4 @@ syms [=@\[\]!:=<>()&|^+%/~\-\*]
 
 
 int yywrap(void) {return 1;}
+
