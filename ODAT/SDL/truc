@@ -1,0 +1,24 @@
+Participants:
+-Opérateur
+-Superviseur
+-Machine
+-Robot d'alimentation
+-Convoyeur
+-Robot de retrait
+
+Fonctionnement:
+-Chaque machine est spécialisée dans une tâche
+-Chaque pièce a un code spécifiant l'opération à appliquer
+-Convoyeur tourne en permanence
+
+
+Ordre d'événements
+1)Superviseur recoit une ordre de l'Opérateur
+2)Superviseur determine la machine qui va usiner
+3)Superviseur envoi ordre a robot_alim de mettre la pièce sur Convoyeur
+4)Superviseur dit à la machine concernée de se préparer
+5)Machine retire la pièce + Envoi signal de libération du Convoyeur au Superviseur
+6)Travail fini : Machine envoie Compte rendu au Superviseur et attend signal Convoyeur libre
+7)Superviseur attend Convoyeur libre, puis ordre à la machine de poser la pièce sur le Convoyeur
+8)Superviseur ordre à robot_retrait de retirer la pièce
+9)robot_retrait compte rendu au Superviseur
