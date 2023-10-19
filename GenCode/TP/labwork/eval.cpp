@@ -76,13 +76,10 @@ optional<value_t> BitFieldExpr::eval() const {
 	if(!ex)
 		return {};
 	auto hi = _hi->eval();
-	if(!hi)
-		return {};
 	auto lo = _lo->eval();
-	if(!lo)
+	if(!hi && !lo)
 		return {};
-
-	return *ex 
-	//return *ex [*hi..*lo];
-	// accès au champs de bits *E1 [E2 .. E3]
+	if(hi == lo)
+		return ((*ex >> *hi) & 1);
+	return ((*ex >> *lo) & ((1 <<(*hi -*lo + 1)) -1)); 
 }

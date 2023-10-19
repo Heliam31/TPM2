@@ -23,6 +23,43 @@ Expression *UnopExpr::reduce() {
 }
 
 Expression *BinopExpr::reduce() {
+	auto a1 = _arg1->reduce();
+	if(!a1)
+		return {};
+	auto a2 = _arg2->reduce();
+	if (!_arg2)
+		return {};
+
+	auto a1Eval = a1->eval();
+	auto a2Eval = a2->eval();	
+	switch(_op) {
+		case ADD:
+			return new ConstExpr(*a1Eval + *a2Eval);
+		case SUB:
+			return new ConstExpr(*a1Eval - *a2Eval);
+		case MUL:
+			return new ConstExpr(*a1Eval * *a2Eval);
+		case DIV:
+			return new ConstExpr(*a1Eval / *a2Eval);
+		case MOD:
+			return new ConstExpr(*a1Eval % *a2Eval);
+		case BIT_AND:
+			return new ConstExpr(*a1Eval && *a2Eval);
+		case BIT_OR:
+			return new ConstExpr(*a1Eval || *a2Eval);
+		case XOR:
+			return new ConstExpr(*a1Eval ^ *a2Eval);
+		case SHL:
+			return new ConstExpr(*a1Eval << *a2Eval);
+		case SHR:
+			return new ConstExpr(*a1Eval >> *a2Eval);
+		case ROL:
+			return new ConstExpr((*a1Eval << *a2Eval) | (*a1Eval >> (to_string(*a1Eval).size() - *a2Eval)));
+		case ROR:
+			return new ConstExpr((*a1Eval >> *a2Eval) | (*a1Eval << (to_string(*a1Eval).size() - *a2Eval))); 
+		default:
+			return {};
+		}
 }
 
 Expression *BitFieldExpr::reduce() {

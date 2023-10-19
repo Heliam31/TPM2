@@ -3,9 +3,190 @@
 <!DOCTYPE DictionaryObjects SYSTEM "rtdsDictionaryObjects.dtd">
 
 <DictionaryObjects version="9620" language="none" diagramType="sys">
+<Signal id="SIG1" name="sendPiece">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG10" name="LoadedConv">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG11" name="WorkDone">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG12" name="PieceNotFound">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG13" name="PieceDone">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG2" name="takePiece">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG3" name="FreeConv">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG4" name="PieceAvail">
+<SignalParameterType>MachineType</SignalParameterType>
+<SignalParameterTypeId typeItemId="ITEM3"/>
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG5" name="Loaded">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG6" name="MachineNotFound">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG7" name="PieceOnConv">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG8" name="wake">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
+<Signal id="SIG9" name="Free">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</DefiningSymbols>
+</Signal>
 <Item id="ITEM1" type="system" name="systemus" scope="current" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
 <UsingSymbols>
+<SymbolReference symbolId="SYMB15"/>
 <SymbolReference symbolId="SYMB1"/>
 </UsingSymbols>
+<Channel name="sendPiece" fromSignalWindow="SIGWDW4" toSignalWindow="SIGWDW1"/>
+<Channel name="SendPiece" fromSignalWindow="SIGWDW5" toSignalWindow="SIGWDW2"/>
+<Channel name="wake" fromSignalWindow="SIGWDW6" toSignalWindow="SIGWDW3"/>
+</Item>
+<Item id="ITEM10" type="process" name="Robot_retrait" parentId="ITEM1" scope="none" minInstances="1" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB23"/>
+</DefiningSymbols>
+<UsingSymbols>
+<SymbolReference symbolId="SYMB23"/>
+</UsingSymbols>
+<SignalWindow id="SIGWDW5" insideDiagram="FALSE">
+<ConnectorReference linkId="LINK16" isFrom="TRUE"/>
+<ReceivedSignals>
+<SignalReference id="SIG5"/>
+</ReceivedSignals>
+</SignalWindow>
+</Item>
+<Item id="ITEM11" type="process" name="Superviseur" parentId="ITEM1" scope="none" minInstances="1" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB16"/>
+</DefiningSymbols>
+<UsingSymbols>
+<SymbolReference symbolId="SYMB16"/>
+</UsingSymbols>
+<SignalWindow id="SIGWDW6" insideDiagram="FALSE">
+<ConnectorReference linkId="LINK11" isFrom="TRUE"/>
+<ReceivedSignals>
+<SignalReference id="SIG13"/>
+</ReceivedSignals>
+</SignalWindow>
+<SignalWindow id="SIGWDW7" insideDiagram="FALSE">
+<ConnectorReference linkId="LINK12" isFrom="TRUE"/>
+<SentSignals>
+<SignalReference id="SIG13"/>
+</SentSignals>
+</SignalWindow>
+</Item>
+<Item id="ITEM2" type="variable" name="NbMachines" parentId="ITEM1" scope="global" defined="FALSE" anchorItemId="ITEM1" searchPolicy="-1" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<UsingSymbols>
+<SymbolReference symbolId="SYMB13"/>
+</UsingSymbols>
+</Item>
+<Item id="ITEM3" type="type" name="MachineType" parentId="ITEM1" scope="global" defined="FALSE" anchorItemId="ITEM1" searchPolicy="-1" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<UsingSymbols>
+<SymbolReference symbolId="SYMB14"/>
+</UsingSymbols>
+</Item>
+<Item id="ITEM4" type="type" name="Integer" scope="global" defined="FALSE" anchorItemId="ITEM1" searchPolicy="-1" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<UsingSymbols>
+<SymbolReference symbolId="SYMB13"/>
+</UsingSymbols>
+<SourceFilePosition isDefine="FALSE" lineNumber="1" columnNumber="22"/>
+<SourceFilePosition isDefine="FALSE" lineNumber="2" columnNumber="22"/>
+<SourceFilePosition isDefine="FALSE" lineNumber="3" columnNumber="22"/>
+</Item>
+<Item id="ITEM5" type="type" name="MachineType" parentId="ITEM1" scope="none" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="TRUE" syntypeBaseTypeId="ITEM4">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB13" positions="3,8"/>
+</DefiningSymbols>
+</Item>
+<Item id="ITEM6" type="variable" name="NbMachines" parentId="ITEM1" scope="none" variableTypeName="Integer" variableTypeId="ITEM4" isSynonym="TRUE" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB13" positions="0,8"/>
+</DefiningSymbols>
+</Item>
+<Item id="ITEM7" type="process" name="Convoyeur" parentId="ITEM1" scope="none" minInstances="1" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB22"/>
+</DefiningSymbols>
+<UsingSymbols>
+<SymbolReference symbolId="SYMB22"/>
+</UsingSymbols>
+<SignalWindow id="SIGWDW1" insideDiagram="FALSE">
+<ConnectorReference linkId="LINK13" isFrom="FALSE"/>
+<ReceivedSignals>
+<SignalReference id="SIG5"/>
+</ReceivedSignals>
+</SignalWindow>
+<SignalWindow id="SIGWDW2" insideDiagram="FALSE">
+<ConnectorReference linkId="LINK16" isFrom="FALSE"/>
+<SentSignals>
+<SignalReference id="SIG5"/>
+</SentSignals>
+</SignalWindow>
+</Item>
+<Item id="ITEM8" type="process" name="Machine" parentId="ITEM1" scope="none" minInstances="0" maxInstances="NbMachines" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB17"/>
+</DefiningSymbols>
+<UsingSymbols>
+<SymbolReference symbolId="SYMB17"/>
+</UsingSymbols>
+<SignalWindow id="SIGWDW3" insideDiagram="FALSE">
+<ConnectorReference linkId="LINK11" isFrom="FALSE"/>
+<SentSignals>
+<SignalReference id="SIG13"/>
+</SentSignals>
+</SignalWindow>
+</Item>
+<Item id="ITEM9" type="process" name="Robot_alimentation" parentId="ITEM1" scope="none" minInstances="1" formalParameterOrder="-" isFormalParam="FALSE" isSyntype="FALSE">
+<DefiningSymbols>
+<SymbolReference symbolId="SYMB21"/>
+</DefiningSymbols>
+<UsingSymbols>
+<SymbolReference symbolId="SYMB21"/>
+</UsingSymbols>
+<SignalWindow id="SIGWDW4" insideDiagram="FALSE">
+<ConnectorReference linkId="LINK13" isFrom="TRUE"/>
+<SentSignals>
+<SignalReference id="SIG5"/>
+</SentSignals>
+</SignalWindow>
 </Item>
 </DictionaryObjects>

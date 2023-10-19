@@ -11,13 +11,138 @@
 <Description></Description>
 <Text></Text>
 
-<Symbol symbolId="SYMB13" type="sdlText" xCenter="264" yCenter="121" fixedDimensions="FALSE" width="308" height="66" color="#000000" fillColor="#FFFFFF">
+<Symbol symbolId="SYMB13" type="sdlText" xCenter="242" yCenter="121" fixedDimensions="FALSE" width="264" height="154" color="#000000" fillColor="#FFFFFF">
 <Description></Description>
-<Text>&lt;synonym constant_name TypeName = value;
-SDL declarations&gt;
+<Text>synonym NbMachines Integer = 3;
+
+/*Type numéro machine */
+syntype MachineType = Integer
+default 1;
+constants 1 .. NbMachines
+endsyntype;
+
+</Text>
+</Symbol>
+
+<Symbol symbolId="SYMB14" type="sdlText" xCenter="220" yCenter="308" fixedDimensions="FALSE" width="330" height="110" color="#000000" fillColor="#FFFFFF">
+<Description></Description>
+<Text>signal PieceAvail(MachineType), PieceDone;
+signal takePiece, sendPiece, wake;
+signal PieceOnConv, Loaded, Free;
+signal WorkDone, LoadedConv, FreeConv;
+signal PieceNotFound, MachineNotFound;
 </Text>
 </Symbol>
 </Symbol>
+</DiagramPartition>
+
+<DiagramPartition name="Part. 1" nbPagesH="1" nbPagesV="1">
+<PageSpecification pageWidth="21.0" pageHeight="29.7" topMargin="0.0" bottomMargin="0.0" leftMargin="0.0" rightMargin="0.0" pageFooter="FALSE" scaleFactor="1.0"/>
+
+<Symbol symbolId="SYMB15" type="sdlSysDgmFrm" xCenter="297" yCenter="420" fixedDimensions="TRUE" width="551" height="775" color="-" fillColor="-">
+<Description></Description>
+<Text></Text>
+
+<Symbol symbolId="SYMB16" type="sdlPrcs" xCenter="154" yCenter="264" fixedDimensions="FALSE" width="110" height="44" color="#000000" fillColor="#C4EFED">
+<Description></Description>
+<Text>Superviseur</Text>
+</Symbol>
+
+<Symbol symbolId="SYMB17" type="sdlPrcs" xCenter="198" yCenter="451" fixedDimensions="FALSE" width="198" height="44" color="#000000" fillColor="#C4EFED">
+<Description></Description>
+<Text>Machine(0, NbMachines)</Text>
+</Symbol>
+
+<Symbol symbolId="SYMB20" type="sdlPrcs" xCenter="66" yCenter="44" fixedDimensions="FALSE" width="110" height="44" color="#000000" fillColor="#C4EFED">
+<Description></Description>
+<Text>Opérateur</Text>
+</Symbol>
+
+<Symbol symbolId="SYMB21" type="sdlPrcs" xCenter="396" yCenter="99" fixedDimensions="FALSE" width="154" height="44" color="#000000" fillColor="#C4EFED">
+<Description></Description>
+<Text>Robot_alimentation</Text>
+</Symbol>
+
+<Symbol symbolId="SYMB22" type="sdlPrcs" xCenter="429" yCenter="264" fixedDimensions="FALSE" width="110" height="44" color="#000000" fillColor="#C4EFED">
+<Description></Description>
+<Text>Convoyeur</Text>
+</Symbol>
+
+<Symbol symbolId="SYMB23" type="sdlPrcs" xCenter="418" yCenter="440" fixedDimensions="FALSE" width="132" height="44" color="#000000" fillColor="#C4EFED">
+<Description></Description>
+<Text>Robot_retrait</Text>
+</Symbol>
+</Symbol>
+
+<Link linkId="LINK11" type="chnl" textSegmentNum="0" color="#000000" reverseRead="FALSE" oriented="TRUE">
+<Text>wake</Text>
+<Connector attachedSymbolId="SYMB16" type="chnl" isOutside="TRUE" side="x" position="0.872727272727" endType="midarrow">
+<Text id="1">[PieceDone]
+</Text>
+<Text id="2"></Text>
+</Connector>
+<Connector attachedSymbolId="SYMB17" type="chnl" isOutside="TRUE" side="x" position="0.0" endType="midarrow">
+<Text id="1">[]
+</Text>
+<Text id="2"></Text>
+</Connector>
+<LinkSegment orientation="v" length="88"/>
+<LinkSegment orientation="h" length="-4"/>
+<LinkSegment orientation="v" length="99"/>
+
+</Link>
+
+<Link linkId="LINK12" type="chnl" textSegmentNum="0" color="#000000" reverseRead="FALSE" oriented="TRUE">
+<Text>PieceAvail
+</Text>
+<Connector attachedSymbolId="SYMB16" type="chnl" isOutside="TRUE" side="x" position="0.0" endType="midarrow">
+<Text id="1">[]</Text>
+<Text id="2"></Text>
+</Connector>
+<Connector attachedSymbolId="SYMB20" type="chnl" isOutside="TRUE" side="x" position="0.145454545455" endType="midarrow">
+<Text id="1">[PieceDone]
+</Text>
+<Text id="2"></Text>
+</Connector>
+<LinkSegment orientation="v" length="-111"/>
+<LinkSegment orientation="h" length="-80"/>
+<LinkSegment orientation="v" length="-109"/>
+
+</Link>
+
+<Link linkId="LINK13" type="chnl" textSegmentNum="0" color="#000000" reverseRead="FALSE" oriented="TRUE">
+<Text>sendPiece
+</Text>
+<Connector attachedSymbolId="SYMB21" type="chnl" isOutside="TRUE" side="x" position="0.0" endType="midarrow">
+<Text id="1">[]</Text>
+<Text id="2"></Text>
+</Connector>
+<Connector attachedSymbolId="SYMB22" type="chnl" isOutside="TRUE" side="x" position="0.0" endType="midarrow">
+<Text id="1">[Loaded]
+</Text>
+<Text id="2"></Text>
+</Connector>
+<LinkSegment orientation="v" length="77"/>
+<LinkSegment orientation="h" length="33"/>
+<LinkSegment orientation="v" length="88"/>
+
+</Link>
+
+<Link linkId="LINK16" type="chnl" textSegmentNum="0" color="#000000" reverseRead="FALSE" oriented="TRUE">
+<Text>SendPiece
+</Text>
+<Connector attachedSymbolId="SYMB23" type="chnl" isOutside="TRUE" side="x" position="0.166666666667" endType="midarrow">
+<Text id="1">[Loaded
+]</Text>
+<Text id="2"></Text>
+</Connector>
+<Connector attachedSymbolId="SYMB22" type="chnl" isOutside="TRUE" side="x" position="0.0" endType="midarrow">
+<Text id="1">[]</Text>
+<Text id="2"></Text>
+</Connector>
+<LinkSegment orientation="v" length="-176"/>
+
+</Link>
 </DiagramPartition>
 
 </Diagram>
