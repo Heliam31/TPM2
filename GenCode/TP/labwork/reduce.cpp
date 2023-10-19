@@ -1,5 +1,6 @@
 #include "AST.hpp"
 
+/*make clean; make; ./ioc -print-ast -reduce-const test/eval.io*/
 /****** Reduce for expressions ******/
 
 Expression *ConstExpr::reduce() {
@@ -24,16 +25,21 @@ Expression *UnopExpr::reduce() {
 
 Expression *BinopExpr::reduce() {
 	auto a1 = _arg1->reduce();
-	if(!a1)
-		return {};
 	auto a2 = _arg2->reduce();
-	if (!_arg2)
-		return {};
-
+	if((_arg1->type() == CST) && (_arg2->type() == CST)){
+		return new ConstExpr(*eval());
+	}
+	else 
+	return this;
+	/*
 	auto a1Eval = a1->eval();
 	auto a2Eval = a2->eval();	
+	if(!a1Eval)
+		return {};
+	if (!a2Eval)
+		return {};
 	switch(_op) {
-		case ADD:
+		case ADD: 
 			return new ConstExpr(*a1Eval + *a2Eval);
 		case SUB:
 			return new ConstExpr(*a1Eval - *a2Eval);
@@ -60,9 +66,30 @@ Expression *BinopExpr::reduce() {
 		default:
 			return {};
 		}
+	}
+	else{
+		return{};
+	}*/
 }
 
 Expression *BitFieldExpr::reduce() {
+	auto exR = _expr -> reduce();
+	if(exR->type() == BITFIELD){
+		return new ConstExpr(*eval());
+	}
+	else
+		return this;
+	// if(!ex)
+	// 	return {};
+	// auto hiR = _hi->reduce();
+	// auto loR = _lo->reduce();
+	// auto hi = _hi -> eval();
+	// auto lo = _lo -> eval();
+	// if(!hi && !lo)
+	// 	return {};
+	// if(hi == lo)
+	// 	return new ConstExpr((*ex >> *hi) & 1);
+	// return new ConstExpr((*ex >> *lo) & ((1 <<(*hi -*lo + 1)) -1)); 
 }
 
 

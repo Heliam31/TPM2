@@ -1,6 +1,6 @@
-#line 2 "lexer.cpp"
+#line 1 "lexer.cpp"
 
-#line 4 "lexer.cpp"
+#line 3 "lexer.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -511,9 +511,9 @@ char *yytext;
 	void yyerror(const char *);
 	const char *lexer_file = "<stdin>";
 	int lexer_line = 1;
-#line 515 "lexer.cpp"
+#line 514 "lexer.cpp"
 
-#line 517 "lexer.cpp"
+#line 516 "lexer.cpp"
 
 #define INITIAL 0
 #define ecom 1
@@ -735,7 +735,7 @@ YY_DECL
 #line 20 "lexer.ll"
 
 
-#line 739 "lexer.cpp"
+#line 738 "lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -866,12 +866,12 @@ YY_RULE_SETUP
 case 15:
 YY_RULE_SETUP
 #line 39 "lexer.ll"
-{ yylval.INT = strtol(yytext, NULL, 16); return INT; }
+{ yylval.INT = strtol(yytext+2, NULL, 16); return INT; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 40 "lexer.ll"
-{ yylval.INT = strtol(yytext, NULL, 2); return INT; }
+{ yylval.INT = strtol(yytext+2, NULL, 2); return INT; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
@@ -995,7 +995,7 @@ YY_RULE_SETUP
 #line 69 "lexer.ll"
 ECHO;
 	YY_BREAK
-#line 999 "lexer.cpp"
+#line 998 "lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(ecom):
 case YY_STATE_EOF(ccom):
@@ -2007,4 +2007,5 @@ void yyfree (void * ptr )
 
 
 int yywrap(void) {return 1;}
+
 

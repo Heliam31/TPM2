@@ -90,6 +90,7 @@ union YYSTYPE
 {
   Condition * cond;                        /* cond  */
   Expression * expr;                       /* expr  */
+  Expression * atom;                       /* atom  */
   Statement * opt_stmts;                   /* opt_stmts  */
   Statement * stmts;                       /* stmts  */
   Statement * stmt;                        /* stmt  */
@@ -98,7 +99,7 @@ union YYSTYPE
   int line;                                /* line  */
   long int INT;                            /* INT  */
 
-#line 102 "parser.hpp"
+#line 103 "parser.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
