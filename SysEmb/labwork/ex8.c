@@ -12,7 +12,7 @@
 #define ORANGE_LED	13
 #define RED_LED		14
 #define BLUE_LED	15
-#define Banc_LED    8
+#define Banc_LED    4
 
 // GPIODA
 #define USER_BUT	0
@@ -76,7 +76,7 @@ int main() {
 	// main loop
 	printf("Endless loop!\n");
 	while(1) {
-		// printf("compteur: %d \n", TIM4_CNT);
+	// printf("compteur: %d \n", TIM4_CNT);
 		if(TIM4_triggered){
 			printf("triggered");
 			TIM4_triggered = 0;
