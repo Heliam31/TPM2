@@ -28,8 +28,12 @@ Quad::reg_t MemExpr::gen(QuadProgram& prog) {
 
 	case Declaration::VAR:
 		return prog.regFor(static_cast<VarDecl *>(_dec)->name());
-
-
+	
+	case Declaration::REG:{
+		auto r = prog.newReg();
+		prog.emit(Quad::load(r,static_cast<RegDecl *>(_dec)->address()));
+		return r;
+	}
 	default:
 		assert(false);
 		return 0;
@@ -45,6 +49,9 @@ Quad::reg_t UnopExpr::gen(QuadProgram& prog) {
 	case NEG:
 		prog.emit(Quad::neg(r, ro));
 		break;
+	case INV:
+		prog.emit(Quad::inv(r,ro));
+		break;
 	}
 	return r;
 }
@@ -53,6 +60,47 @@ Quad::reg_t UnopExpr::gen(QuadProgram& prog) {
 ///
 Quad::reg_t BinopExpr::gen(QuadProgram& prog) {
 	auto rd = prog.newReg();
+	auto r = _arg1->gen(prog);
+	auto ro = _arg2->gen(prog);
+	switch(_op) {
+	case ADD:
+		prog.emit(Quad::add(rd, r, ro));
+		break;
+	case SUB:
+		prog.emit(Quad::sub(rd, r, ro));
+		break;
+	case MUL:
+		prog.emit(Quad::mul(rd, r, ro));
+		break;
+	case DIV:
+		prog.emit(Quad::div(rd, r, ro));
+		break;
+	case MOD:
+		prog.emit(Quad::mod(rd, r, ro));
+		break;
+	case BIT_AND:
+		prog.emit(Quad::and_(rd,r, ro));
+		break;
+	case BIT_OR:
+		prog.emit(Quad::or_(rd,r,ro));
+		break;
+	case XOR:
+		prog.emit(Quad::xor_(rd, r, ro));
+		break;
+	case SHL:
+		prog.emit(Quad::shl(rd, r, ro));
+		break;
+	case SHR:
+		prog.emit(Quad::shr(rd, r, ro));
+		break;
+	case ROL:
+		prog.emit(Quad::rol(rd, r, ro));
+		break;
+	case ROR:
+		prog.emit(Quad::ror(rd, r, ro));
+		break;
+	}
+	
 	return rd;
 }
 
@@ -91,6 +139,9 @@ void NOPStatement::gen(AutoDecl& automaton, QuadProgram& prog) const {
 
 ///
 void SeqStatement::gen(AutoDecl& automaton, QuadProgram& prog) const {
+	prog.comment(pos);
+	_stmt1->gen(automaton, prog);
+	_stmt2->gen(automaton,prog);
 }
 
 ///

@@ -1,5 +1,5 @@
 #include "AST.hpp"
-
+/*make clean; make; ./ioc -print-quads test/zero.io*/
 /*make clean; make; ./ioc -print-ast -reduce-const test/eval.io*/
 /****** Reduce for expressions ******/
 
