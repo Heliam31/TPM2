@@ -116,6 +116,11 @@ void CompCond::gen(Quad::lab_t lab_true, Quad::lab_t lab_false, QuadProgram& pro
 	auto a2 = _arg2->gen(prog);
 	switch(_comp) {
 	case EQ: prog.emit(Quad::goto_eq(lab_true, a1, a2)); break;
+	case NE: prog.emit(Quad::goto_ne(lab_true, a1, a2)); break;
+	case LT: prog.emit(Quad::goto_lt(lab_true, a1, a2)); break;
+	case LE: prog.emit(Quad::goto_le(lab_true, a1, a2)); break;
+	case GT: prog.emit(Quad::goto_gt(lab_true, a1, a2)); break;
+	case GE: prog.emit(Quad::goto_ge(lab_true, a1, a2)); break;
 	}
 }
 
@@ -126,10 +131,18 @@ void NotCond::gen(Quad::lab_t lab_true, Quad::lab_t lab_false, QuadProgram& prog
 
 ///
 void AndCond::gen(Quad::lab_t lab_true, Quad::lab_t lab_false, QuadProgram& prog) const {
+	Quad::lab_t lab_2 = prog.newLab();
+	_cond1->gen(lab_2,lab_false,prog);
+	prog.emit(Quad::lab(lab_2));
+	_cond2->gen(lab_true,lab_false,prog);
 }
 
 ///
 void OrCond::gen(Quad::lab_t lab_true, Quad::lab_t lab_false, QuadProgram& prog) const {
+	Quad::lab_t lab_2 = prog.newLab();
+	_cond1->gen(lab_true,lab_2,prog);
+	prog.emit(Quad::lab(lab_2));
+	_cond2->gen(lab_true,lab_false,prog);
 }
 
 
@@ -146,7 +159,17 @@ void SeqStatement::gen(AutoDecl& automaton, QuadProgram& prog) const {
 
 ///
 void IfStatement::gen(AutoDecl& automaton, QuadProgram& prog) const {
-	prog.comment(pos);
+	Quad::lab_t lab_true = prog.newLab();
+	Quad::lab_t lab_false = prog.newLab();
+	Quad::lab_t lab_endif = prog.newLab();
+	_cond->gen(lab_true,lab_false,prog);
+	prog.emit(Quad::goto_(lab_false));
+	prog.emit(Quad::lab(lab_true));
+	_stmt1->gen(automaton, prog);
+	prog.emit(Quad::goto_(lab_endif));
+	prog.emit(Quad::lab(lab_false));
+	_stmt2->gen(automaton,prog);
+	prog.emit(Quad::lab(lab_endif));
 }
 
 ///

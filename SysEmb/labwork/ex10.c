@@ -27,6 +27,8 @@ int main() {
 	// RCC init
 	RCC_AHB1ENR |= RCC_GPIOAEN;
 	RCC_AHB1ENR |= RCC_GPIODEN;
+	RCC_AHB1ENR |= RCC_GPIOBEN;
+	
 
 	// GPIO init
 	init();
