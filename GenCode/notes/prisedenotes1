@@ -1,0 +1,15 @@
+6
+for:
+2 first time puis 4
+bcs end:
+5
+bne next
+pris:           pas pris:
+4               3
+
+
+
+6+2+(4*N)+(5*N)+(3*nbPair)+(4*nbimpair)
+
+Pire cas N=10 et tout impair:
+6+2+40+50+ 40 = 138

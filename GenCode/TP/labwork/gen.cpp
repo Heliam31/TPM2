@@ -107,6 +107,29 @@ Quad::reg_t BinopExpr::gen(QuadProgram& prog) {
 
 ///
 Quad::reg_t BitFieldExpr::gen(QuadProgram& prog) {
+	Quad::reg_t rExp = 0;
+	Quad::reg_t rHi = 1;
+	Quad::reg_t rLo = 2;
+
+	auto e = _expr->gen(prog);
+	auto hi = _hi->gen(prog);
+	auto lo = _lo->gen(prog);
+
+	if(hi == lo){ //bit field de taille 1
+		Quad::reg_t un = prog.newReg();
+		prog.emit(Quad::seti(un,1));
+        prog.emit(Quad::shr(rExp,e,lo));
+        prog.emit(Quad::and_(rExp,rExp,un));
+	}
+	else{ //cas par default
+		//on met les e,hi,lo dans les registres 0,1,2
+		prog.emit(Quad::set(rExp,e));
+		prog.emit(Quad::set(rHi, hi));
+		prog.emit(Quad::set(rLo,lo));
+		//on appelle le sous-programme
+		prog.emit(Quad::call(field_set_call));
+	}
+	return rExp;
 }
 
 
