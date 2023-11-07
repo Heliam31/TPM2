@@ -111,12 +111,16 @@ void SetFieldStatement::reduce() {
 }
 
 void IfStatement::reduce() {
+	_stmt1->reduce();
+	_stmt2->reduce();
 }
 
 void GotoStatement::reduce() {
+	_state->reduce();
 }
 
 void StopStatement::reduce() {
+	
 }
 
 
