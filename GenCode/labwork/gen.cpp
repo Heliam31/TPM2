@@ -127,7 +127,7 @@ Quad::reg_t BitFieldExpr::gen(QuadProgram& prog) {
 		prog.emit(Quad::set(rHi, hi));
 		prog.emit(Quad::set(rLo,lo));
 		//on appelle le sous-programme
-		prog.emit(Quad::call(field_set_call));
+		prog.emit(Quad::call(field_get_call));
 	}
 	return rExp;
 }
@@ -218,7 +218,49 @@ void SetStatement::gen(AutoDecl& automaton, QuadProgram& prog) const {
 
 ///
 void SetFieldStatement::gen(AutoDecl& automaton, QuadProgram& prog) const {
-	prog.comment(pos);
+	Quad::reg_t R0 = 0;
+	Quad::reg_t R1 = 1;
+	Quad::reg_t R2 = 2;
+	Quad::reg_t R3 = 3;
+	auto e = _expr->gen(prog);
+	auto hi = _hi->gen(prog);
+	auto lo = _lo->gen(prog);
+
+	if(hi == lo && (_expr->type() == 1)){ //u=l et e constant
+		if(e==1){
+			Quad::reg_t un = prog.newReg();
+			Quad::reg_t tmp = prog.newReg();
+			prog.emit(Quad::seti(un,1));
+			prog.emit(Quad::shl(tmp,lo,un));
+			prog.emit(Quad::or_(R0,R0,tmp));
+		}
+		else if(e==0){
+			Quad::reg_t un = prog.newReg();
+			Quad::reg_t tmp = prog.newReg();
+			prog.emit(Quad::seti(un,1));
+			prog.emit(Quad::shl(tmp,lo,un));
+			prog.emit(Quad::inv(tmp,tmp));
+			prog.emit(Quad::and_(R0,R0,tmp));
+		}
+		else{ //cas par default
+			//on met les e,hi,lo dans les registres 0,1,2
+			prog.emit(Quad::set(R0, e));
+			prog.emit(Quad::set(R1, hi));
+			prog.emit(Quad::set(R2,lo));
+			prog.emit(Quad::set(R3,e));
+			//on appelle le sous-programme
+			prog.emit(Quad::call(field_set_call));
+		}
+	}
+	else{ //cas par default
+		//on met les e,hi,lo dans les registres 0,1,2
+		prog.emit(Quad::set(R0, e));
+		prog.emit(Quad::set(R1, hi));
+		prog.emit(Quad::set(R2,lo));
+		prog.emit(Quad::set(R3,e));
+		//on appelle le sous-programme
+		prog.emit(Quad::call(field_set_call));
+	}
 }
 
 ///

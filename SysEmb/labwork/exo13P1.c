@@ -1,4 +1,4 @@
-/* Embedded Systems - Exercise 12 */
+/* Embedded Systems - Exercise 13 */
 
 #include <tinyprintf.h>
 #include <stm32f4/rcc.h>
@@ -22,12 +22,34 @@
 // GPIODA
 #define USER_BUT	0
 
+void handleADC(){
+	long mesure = ADC1_DR;
+	printf("mesure %ld\n",mesure);
+	if (mesure < 2000){
+		GPIOD_BSRR = 1<<LED;
+	}
+	else{
+		GPIOD_BSRR = 1 <<(16+LED);
+	}	
+
+	NVIC_ICPR(ADC_IRQ>>5)=1<<(ADC_IRQ & 0x1f);
+	NVIC_ISER(ADC_IRQ >> 5) = 1 << (ADC_IRQ & 0x1f);
+	ADC1_CR2|= ADC_SWSTART;
+}
 void init_ADC(){
 	GPIOA_MODER = REP_BITS(GPIOA_MODER, RES*2,2,GPIO_MODER_ANA);
 	ADC1_SQR3=3;
 	ADC1_CR1 = 0;
 	ADC1_CR2 = ADC_ADON ;
-
+	TIM3_CR1 = 0;
+	TIM3_PSC = 1000-1;
+	TIM3_ARR=(APB1_CLK)/1000/10;
+	ADC1_CR1=ADC_EOCIE;
+	NVIC_ICER(ADC_IRQ>>5) = 1<<(ADC_IRQ & 0x1f);
+	NVIC_IPR(ADC_IRQ)= 0;
+	NVIC_IRQ(ADC_IRQ)=handleADC;
+	NVIC_ICPR(ADC_IRQ>>5)=1<<(ADC_IRQ & 0x1f);
+	NVIC_ISER(ADC_IRQ >> 5) = 1 << (ADC_IRQ & 0x1f);
 	//Init led
 	GPIOD_MODER = REP_BITS(GPIOD_MODER, LED*2, 2, GPIO_MODER_OUT);
 	GPIOD_OTYPER = GPIOD_OTYPER && ~(1<<LED);
@@ -47,18 +69,7 @@ int main() {
 	printf("Endless loop!\n");
 	while(1) {
 		ADC1_CR2|= ADC_SWSTART;
-		while((ADC1_SR & ADC_EOC) == 0){
-		}
-		long mesure = ADC1_DR;
-		printf("mesure %ld\n",mesure);
-		if (mesure < 2000){
-			GPIOD_BSRR = 1<<LED;
-		}
-		else{
-			GPIOD_BSRR = 1 <<(16+LED);
-		}
+
 	}
 
 }
-
-

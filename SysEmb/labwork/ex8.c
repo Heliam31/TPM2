@@ -12,7 +12,7 @@
 #define ORANGE_LED	13
 #define RED_LED		14
 #define BLUE_LED	15
-#define Banc_LED    4
+#define Banc_LED    2
 
 // GPIODA
 #define USER_BUT	0
