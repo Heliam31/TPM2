@@ -1,0 +1,4 @@
+-Envoi du pc vers la rPi:
+sudo scp Path/Dans/PC pi@192.168.0.102:/home/pi/kitCLB/doss
+
+-r pour dossier

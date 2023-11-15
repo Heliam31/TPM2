@@ -1,0 +1,1 @@
+cmd_/home/pi/kitCLB/char/char.ko := ld -r -EL  -maarch64elf -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/pi/kitCLB/char/char.ko /home/pi/kitCLB/char/char.o /home/pi/kitCLB/char/char.mod.o;  true
