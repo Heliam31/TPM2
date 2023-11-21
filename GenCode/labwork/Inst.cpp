@@ -93,9 +93,52 @@ select_t
 	},
 	select_addi2 = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::add(RECORD|0, EQUAL|2, RECORD|1) },
-		{ Inst("\tadd R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tadd R%0,R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
 	},
-
+	select_sub = {
+		{ Quad::sub(RECORD|0, RECORD|1, RECORD|2) },
+		{ Inst("\tsub R%0, R%1, R%2", pwrite(COPY|0), pread(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_subi = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::sub(RECORD|0, RECORD|1, EQUAL|2) },
+		{ Inst("\tsub R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_subi2 = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::sub(RECORD|0, EQUAL|2, RECORD|1) },
+		{ Inst("\tsub R%0,R%1,#%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_mul = {
+		{ Quad::mul(RECORD|0, RECORD|1, RECORD|2) },
+		{ Inst("\tmul R%0, R%1, R%2", pwrite(COPY|0), pread(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_div = {
+		{ Quad::div(RECORD|0, RECORD|1, RECORD|2) },
+		{ Inst("\tdiv R%0, R%1, R%2", pwrite(COPY|0), pread(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_eor = {
+		{ Quad::xor_(RECORD|0, RECORD|1, RECORD|2) },
+		{ Inst("\teor R%0, R%1, R%2", pwrite(COPY|0), pread(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_eori = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::xor_(RECORD|0, RECORD|1, EQUAL|2) },
+		{ Inst("\teor R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_eori2 = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::xor_(RECORD|0, EQUAL|2, RECORD|1) },
+		{ Inst("\teor R%0,R%1,#%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_and = {
+		{Quad::and_(RECORD|0,RECORD|1,RECORD|2)},
+		{Inst("\tand R%0, R%1, R%2", pwrite(COPY|0), pread(COPY|1), pread(COPY|2)), Inst::end}
+	},
+	select_andi = {
+		{Quad::seti(RECORD|2,ISIMM|3),Quad::and_(RECORD|0,RECORD|1,EQUAL|2)},
+		{Inst("\tand R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)), Inst::end}
+	},
+	select_andi2 = {
+		{Quad::seti(RECORD|2,ISIMM|3),Quad::and_(RECORD|0,EQUAL|2,RECORD|1)},
+		{Inst("\tand R%0,R%1,#%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)), Inst::end}
+	},	
 	select_label = {
 		{ Quad::lab(RECORD|0) },
 		{ Inst("L%0:", pcst(COPY|0)), Inst::end }
@@ -112,7 +155,38 @@ select_t
 		{ Quad::seti(RECORD|0, ISIMM|1) },
 		{ Inst("\tmov R%0, #%1", pwrite(COPY|0), pcst(COPY|1)), Inst::end }
 	},
-
+	select_shl= {
+		{ Quad::shl(RECORD|0, RECORD|1, RECORD|2) },
+		{ Inst("\tmov R%0, R%1, lsl R%2", pwrite(COPY|0), pread(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_shli = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shl(RECORD|0, RECORD|1, EQUAL|2) },
+		{ Inst("\tmov R%0, R%1, lsl #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_shli2 = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shl(RECORD|0, EQUAL|2, RECORD|1) },
+		{ Inst("\tmov R%0, R%1, lsl #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_shr= {
+		{ Quad::shr(RECORD|0, RECORD|1, RECORD|2) },
+		{ Inst("\tmov R%0, R%1, lsr R%2", pwrite(COPY|0), pread(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_shri = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shr(RECORD|0, RECORD|1, EQUAL|2) },
+		{ Inst("\tmov R%0, R%1, lsr #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_shri2 = {
+		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shr(RECORD|0, EQUAL|2, RECORD|1) },
+		{ Inst("\tmov R%0, R%1, lsr #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+	},
+	select_goto = {
+		{Quad::goto_(RECORD|0)},
+		{Inst("\tgoto %0", pread(COPY|0))}
+	},
+	select_call = {
+		{Quad::call(RECORD|0)},
+		{Inst("\tb %0", pread(COPY|0))}
+	},
 	select_return = {
 		{ Quad::return_() },
 		{ Inst("\tbx LR"), Inst::end }
@@ -125,11 +199,31 @@ select_t *selectors[] = {
 	&select_add,
 	&select_addi,
 	&select_addi2,
+	&select_sub,
+	&select_subi,
+	&select_subi2,
+	&select_mul,
+	&select_div,
+	&select_eor,
+	&select_eori,
+	&select_eori2,
+	&select_shl,
+	&select_shli,
+	&select_shli2,
+	&select_shr,
+	&select_shri,
+	&select_goto,
+	&select_shri2,
+	&select_and,
+	&select_andi,
+	&select_andi2,
 	&select_label,
+	&select_call,
 	&select_mov,
 	&select_mov,
 	&select_movi,
 	&select_ldreq,
+	&select_return,
 	nullptr
 };
 
