@@ -1,0 +1,66 @@
+#Name: register
+#Label: Register Usage
+#Description: View read and written registers.
+0	1	00000504	read r13, r11, r14, write r13
+0	1	00000508	read r13, write r11
+0	1	0000050c	write r0
+0	1	00000510	write r14, r14
+0	2	00000514	write r3
+0	2	00000518	read r3, write r0
+0	2	0000051c	read r11, write r13
+0	2	00000520	read r13, write r13, r11, r14
+0	2	00000524	read r14, write r15
+1	1	00000428	read r13, r11, write r13
+1	1	0000042c	read r13, write r11
+1	1	00000430	read r13, write r13
+1	1	00000434	read r11, r0
+1	1	00000438	write r3
+1	1	0000043c	read r11, r3
+1	1	00000440	write r3
+1	1	00000444	read r11, r3
+1	1	00000448	write r3
+1	1	0000044c	read r11, r3
+1	1	00000450	write r14
+1	2	000004dc	read r11, write r2
+1	2	000004e0	read r11, write r3
+1	2	000004e4	read r2, r3, write sr
+1	2	000004e8	read sr, write r14
+1	3	00000454	read r11, write r2
+1	3	00000458	read r11, write r3
+1	3	0000045c	read r2, r3, write r3
+1	3	00000460	read r3, write r3
+1	3	00000464	read r11, r3
+1	3	00000468	read r15, write r2
+1	3	0000046c	read r11, write r3
+1	3	00000470	read r2, r3, write r3
+1	3	00000474	read r11, write r2
+1	3	00000478	read r2, r3, write sr
+1	3	0000047c	read sr, write r14
+1	4	000004a8	read r15, write r2
+1	4	000004ac	read r11, write r3
+1	4	000004b0	read r2, r3, write r3
+1	4	000004b4	read r11, write r2
+1	4	000004b8	read r2, r3, write sr
+1	4	000004bc	read sr, write r14
+1	5	000004d0	read r11, write r3
+1	5	000004d4	read r3, write r3
+1	5	000004d8	read r11, r3
+1	6	000004c0	read r11, write r3
+1	6	000004c4	read r3, write r3
+1	6	000004c8	read r11, r3
+1	6	000004cc	write r14
+1	7	00000480	read r11, write r3
+1	7	00000484	read r3, write r3
+1	7	00000488	read r11, r3
+1	7	0000048c	read r15, write r2
+1	7	00000490	read r11, write r3
+1	7	00000494	read r3, write r3
+1	7	00000498	read r2, r3, write r3
+1	7	0000049c	read r3, write r3
+1	7	000004a0	read r11, r3
+1	7	000004a4	write r14
+1	8	000004ec	read r11, write r3
+1	8	000004f0	read r3, write r0
+1	8	000004f4	read r11, write r13
+1	8	000004f8	read r13, write r11, r13
+1	8	000004fc	read r14, write r15

@@ -1,0 +1,136 @@
+int main(void );
+
+void _start(void )
+{
+# 57 "crc.c"
+	main();
+# 58 "crc.c"
+	while(1)
+# 58 "crc.c"
+		;
+}
+
+typedef unsigned char uchar;
+
+unsigned char lin[256]
+	= "\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"";
+
+unsigned short int icrc1(unsigned short int crc, unsigned char onech)
+{
+	int i;
+	unsigned short int ans = crc ^ onech << 8;
+# 73 "crc.c"
+	for(i = 0; i < 8; i++)
+# 73 "crc.c"
+	{
+# 74 "crc.c"
+		if(ans & 0x8000)
+# 75 "crc.c"
+			ans = (((ans <<= 1))) ^ 4129;
+		else
+# 76 "crc.c"
+# 77 "crc.c"
+			ans <<= 1;
+	}
+# 79 "crc.c"
+	return ans;
+}
+
+unsigned short int icrc(unsigned short int crc_0, unsigned long int len,
+	short int jinit, int jrev)
+{
+	unsigned short int icrc1(unsigned short int crc, unsigned char onech);
+	static unsigned short int icrctb[256], init = 0;
+	static uchar rchr[256];
+	unsigned short int tmp1, tmp2, j, cword = crc_0;
+	static uchar it[16] = {0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7,
+		15};
+# 91 "crc.c"
+	if(!init)
+# 91 "crc.c"
+	{
+# 92 "crc.c"
+		init = 1;
+# 93 "crc.c"
+		for(j = 0; j <= 255; j++)
+# 93 "crc.c"
+		{
+# 94 "crc.c"
+			icrctb[j] = icrc1(j << 8, (uchar)0);
+# 95 "crc.c"
+			rchr[j] = (uchar)((it[j & 0xF] << 4 | it[j >> 4]));
+		}
+	}
+# 98 "crc.c"
+	if(jinit >= 0)
+# 98 "crc.c"
+		cword = (uchar)jinit | (uchar)jinit << 8;
+	else
+	{
+# 99 "crc.c"
+# 99 "crc.c"
+		if(jrev < 0)
+# 100 "crc.c"
+			cword = rchr[(uchar)((cword >> 8))] |
+				rchr[(uchar)((cword & 0xFF))] << 8;
+	}
+# 104 "crc.c"
+	for(j = 1; j <= len; j++)
+# 104 "crc.c"
+	{
+# 105 "crc.c"
+		if(jrev < 0)
+# 105 "crc.c"
+		{
+# 106 "crc.c"
+			tmp1 = rchr[lin[j]] ^ (uchar)((cword >> 8));
+		}
+		else
+# 108 "crc.c"
+# 108 "crc.c"
+		{
+# 109 "crc.c"
+			tmp1 = lin[j] ^ (uchar)((cword >> 8));
+		}
+# 111 "crc.c"
+		cword = icrctb[tmp1] ^ (uchar)((cword & 0xFF)) << 8;
+	}
+# 113 "crc.c"
+	if(jrev >= 0)
+# 113 "crc.c"
+	{
+# 114 "crc.c"
+		tmp2 = cword;
+	}
+	else
+# 116 "crc.c"
+# 116 "crc.c"
+	{
+# 117 "crc.c"
+		tmp2 = rchr[(uchar)((cword >> 8))] | rchr[(uchar)((cword &
+			0xFF))] << 8;
+	}
+# 119 "crc.c"
+	return tmp2;
+}
+
+int main(void _0)
+{
+	unsigned short int i1, i2;
+	unsigned long int n;
+# 129 "crc.c"
+	n = 40;
+# 130 "crc.c"
+	lin[n + 1] = 0;
+# 131 "crc.c"
+	i1 = icrc(0, n, (short int)0, 1);
+# 132 "crc.c"
+	lin[n + 1] = (uchar)((i1 >> 8));
+# 133 "crc.c"
+	lin[n + 2] = (uchar)((i1 & 0xFF));
+# 134 "crc.c"
+	i2 = icrc(i1, n + 2, (short int)0, 1);
+# 135 "crc.c"
+	return 0;
+}
+

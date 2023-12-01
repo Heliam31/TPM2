@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowfacts>
+    <function name="main" executed="true" extern="false">
+        <call name="icrc" numcall="3" line="131" source="crc.c" executed="true" extern="false">
+            <function name="icrc">
+                <conditional id="IF-2"> <condition line="91" source="crc.c" executed="true"> </condition>
+                    <case cond="1" executed="true" line="92" source="crc.c">
+                        <loop loopId="3" line="93" source="crc.c" exact="false" maxcount="256" totalcount="256">
+                            <call name="icrc1" numcall="2" line="94" source="crc.c" executed="true" extern="false">
+                                <function name="icrc1">
+                                    <loop loopId="2" line="73" source="crc.c" exact="false" maxcount="8" totalcount="2048">
+                                    </loop>
+                                </function>
+                            </call>
+                        </loop>
+                    </case>
+                    <case cond="0" executed="false" >
+                    </case>
+                </conditional>
+                <loop loopId="4" line="104" source="crc.c" exact="true" maxcount="40" totalcount="40">
+                </loop>
+            </function>
+        </call>
+        <call name="icrc" numcall="4" line="134" source="crc.c" executed="true" extern="false">
+            <function name="icrc">
+                <conditional id="IF-2"> <condition line="91" source="crc.c" executed="true"> </condition>
+                    <case cond="1" executed="false" line="92" source="crc.c">
+                        <loop loopId="3" line="93" source="crc.c" exact="false" maxcount="0" totalcount="0">
+                            <call name="icrc1" numcall="2" line="94" source="crc.c" executed="false" extern="false">
+                                <function name="icrc1">
+                                    <loop loopId="2" line="73" source="crc.c" exact="false" maxcount="0" totalcount="0">
+                                    </loop>
+                                </function>
+                            </call>
+                        </loop>
+                    </case>
+                    <case cond="0" executed="true" >
+                    </case>
+                </conditional>
+                <loop loopId="4" line="104" source="crc.c" exact="true" maxcount="42" totalcount="42">
+                </loop>
+            </function>
+        </call>
+        <loop source="crc.c" line="73" max="8"  min="0">
+        </loop>
+        <loop source="crc.c" line="93" max="256"  min="0">
+        </loop>
+        <loop source="crc.c" line="104" max="42"  min="40">
+        </loop>
+    </function>
+</flowfacts>
+

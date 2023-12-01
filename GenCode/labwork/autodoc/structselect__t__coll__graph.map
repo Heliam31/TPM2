@@ -1,0 +1,6 @@
+<map id="select_t" name="select_t">
+<area shape="rect" id="node1" title=" " alt="" coords="33,181,101,207"/>
+<area shape="rect" id="node2" href="$class_quad.html" title=" " alt="" coords="5,93,59,119"/>
+<area shape="rect" id="node3" href="$class_inst.html" title=" " alt="" coords="83,93,127,119"/>
+<area shape="rect" id="node4" href="$class_param.html" title=" " alt="" coords="75,5,135,31"/>
+</map>

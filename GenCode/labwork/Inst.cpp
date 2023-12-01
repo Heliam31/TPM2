@@ -22,8 +22,8 @@ typedef struct select_t {
 	Inst insts[];
 } select_t;
 
+inline Param pwrite(uint32_t x) { return Param::write(x); }
 inline Param pread(uint32_t x) { return Param::read(x); }
-inline Param pwrite(uint32_t x) { return Param::read(x); }
 inline Param pcst(uint32_t x) { return Param::cst(x); }
 
 
@@ -89,11 +89,11 @@ select_t
 	},
 	select_addi = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::add(RECORD|0, RECORD|1, EQUAL|2) },
-		{ Inst("\tadd R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tadd R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) , Inst::end }
 	},
 	select_addi2 = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::add(RECORD|0, EQUAL|2, RECORD|1) },
-		{ Inst("\tadd R%0,R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tadd R%0,R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)), Inst::end  }
 	},
 	select_sub = {
 		{ Quad::sub(RECORD|0, RECORD|1, RECORD|2) },
@@ -101,11 +101,11 @@ select_t
 	},
 	select_subi = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::sub(RECORD|0, RECORD|1, EQUAL|2) },
-		{ Inst("\tsub R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tsub R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)), Inst::end  }
 	},
 	select_subi2 = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::sub(RECORD|0, EQUAL|2, RECORD|1) },
-		{ Inst("\tsub R%0,R%1,#%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tsub R%0,R%1,#%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)), Inst::end  }
 	},
 	select_mul = {
 		{ Quad::mul(RECORD|0, RECORD|1, RECORD|2) },
@@ -121,11 +121,11 @@ select_t
 	},
 	select_eori = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::xor_(RECORD|0, RECORD|1, EQUAL|2) },
-		{ Inst("\teor R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\teor R%0, R%1, #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)), Inst::end  }
 	},
 	select_eori2 = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::xor_(RECORD|0, EQUAL|2, RECORD|1) },
-		{ Inst("\teor R%0,R%1,#%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\teor R%0,R%1,#%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)), Inst::end  }
 	},
 	select_and = {
 		{Quad::and_(RECORD|0,RECORD|1,RECORD|2)},
@@ -161,11 +161,11 @@ select_t
 	},
 	select_shli = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shl(RECORD|0, RECORD|1, EQUAL|2) },
-		{ Inst("\tmov R%0, R%1, lsl #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tmov R%0, R%1, lsl #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) , Inst::end }
 	},
 	select_shli2 = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shl(RECORD|0, EQUAL|2, RECORD|1) },
-		{ Inst("\tmov R%0, R%1, lsl #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tmov R%0, R%1, lsl #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) , Inst::end }
 	},
 	select_shr= {
 		{ Quad::shr(RECORD|0, RECORD|1, RECORD|2) },
@@ -173,11 +173,11 @@ select_t
 	},
 	select_shri = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shr(RECORD|0, RECORD|1, EQUAL|2) },
-		{ Inst("\tmov R%0, R%1, lsr #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tmov R%0, R%1, lsr #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) , Inst::end }
 	},
 	select_shri2 = {
 		{ Quad::seti(RECORD|2, ISIMM|3), Quad::shr(RECORD|0, EQUAL|2, RECORD|1) },
-		{ Inst("\tmov R%0, R%1, lsr #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) }
+		{ Inst("\tmov R%0, R%1, lsr #%2", pwrite(COPY|0), pread(COPY|1), pcst(COPY|3)) , Inst::end }
 	},
 	select_goto = {
 		{Quad::goto_(RECORD|0)},
@@ -190,8 +190,55 @@ select_t
 	select_return = {
 		{ Quad::return_() },
 		{ Inst("\tbx LR"), Inst::end }
+	},
+	select_gotoLlabL = {
+		{Quad::goto_(RECORD|0), Quad::lab(EQUAL|0) },
+		{ Inst("L%0:", pcst(COPY|0)), Inst::end }
+	},
+	select_gotoEQ = {
+		{Quad::goto_eq(RECORD|0,RECORD|1,RECORD|2)},
+		{Inst("\tcmp R%0 R%1", pread(COPY|1),pread(COPY|2)), Inst("\tbeq L%0", pread(COPY|0)), Inst::end }
+	},
+	select_gotoLE = {
+		{Quad::goto_le(RECORD|0,RECORD|1,RECORD|2)},
+		{Inst("\tcmp R%0 R%1", pread(COPY|1),pread(COPY|2)), Inst("\tble L%0", pread(COPY|0)), Inst::end }
+	},
+	select_gotoCEQ = {
+		{Quad::goto_eq(RECORD|0,RECORD|1,RECORD|2), Quad::goto_(RECORD|3) ,Quad::lab(EQUAL|2)},
+		{Inst("\tcmp R%0 R%1", pread(COPY|1),pread(COPY|2)), Inst("\tbne L%0", pread(COPY|3)), Inst("L%0:", pcst(COPY|2)), Inst::end }
+	},
+	select_gotoCLE = {
+		{Quad::goto_le(RECORD|0,RECORD|1,RECORD|2), Quad::goto_(RECORD|3) ,Quad::lab(EQUAL|2)},
+		{Inst("\tcmp R%0 R%1", pread(COPY|1),pread(COPY|2)), Inst("\tbgt L%0", pread(COPY|3)), Inst("L%0:", pcst(COPY|2)), Inst::end }
+	},
+	select_add0simpl = {
+		{Quad::seti(RECORD|0, 0), Quad::add(RECORD|1, RECORD|2, RECORD|0)},
+		{Inst("\tmov R%0, R%1", pwrite(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_sub0simpl = {
+		{Quad::seti(RECORD|0, 0), Quad::sub(RECORD|1, RECORD|2, RECORD|0)},
+		{Inst("\tmov R%0, R%1", pwrite(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_sub0simpl2 = {
+		{Quad::seti(RECORD|0, 0), Quad::sub(RECORD|1, RECORD|2, RECORD|0)},
+		{Inst("\tmov R%0, R%1", pwrite(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_mul0simpl = {
+		{Quad::seti(RECORD|0, 0), Quad::mul(RECORD|1, RECORD|2, RECORD|0)},
+		{Inst("\tmov R%0, R%1", pwrite(COPY|1), pread(COPY|0)), Inst::end }
+	},
+	select_mul1simpl = {
+		{Quad::seti(RECORD|0, 1), Quad::mul(RECORD|1, RECORD|2, RECORD|0)},
+		{Inst("\tmov R%0, R%1", pwrite(COPY|1), pread(COPY|2)), Inst::end }
+	},
+	select_puis2shl = {
+		{Quad::seti(RECORD|0, POW2|1), Quad::mul(RECORD|2, RECORD|3, COPY|0)},
+		{Inst("\tmov R%0, R%1, lsl R%2", pwrite(COPY|2), pread(COPY|3), pread(LOG2|1)), Inst::end}
+	},
+	select_puis2shr = {
+		{Quad::seti(RECORD|0, POW2|1), Quad::div(RECORD|2, RECORD|3, COPY|0)},
+		{Inst("\tmov R%0, R%1, lsr R%2", pwrite(COPY|2), pread(COPY|3), pread(LOG2|1)), Inst::end}
 	}
-
 ;
 
 
@@ -223,6 +270,18 @@ select_t *selectors[] = {
 	&select_mov,
 	&select_movi,
 	&select_ldreq,
+	&select_gotoLlabL,
+	&select_gotoEQ,
+	&select_gotoLE,
+	&select_gotoCEQ,
+	&select_gotoCLE,
+	&select_add0simpl,
+	&select_sub0simpl,
+	&select_sub0simpl2,
+	&select_mul0simpl,
+	&select_mul1simpl,
+	&select_puis2shl,
+	&select_puis2shr,
 	&select_return,
 	nullptr
 };

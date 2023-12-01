@@ -1,0 +1,11 @@
+<map id="Statement" name="Statement">
+<area shape="rect" id="node1" title=" " alt="" coords="101,153,184,179"/>
+<area shape="rect" id="node3" href="$class_goto_statement.html" title=" " alt="" coords="242,5,353,31"/>
+<area shape="rect" id="node4" href="$class_if_statement.html" title=" " alt="" coords="252,55,343,80"/>
+<area shape="rect" id="node5" href="$class_n_o_p_statement.html" title=" " alt="" coords="242,104,353,129"/>
+<area shape="rect" id="node6" href="$class_seq_statement.html" title=" " alt="" coords="245,153,350,179"/>
+<area shape="rect" id="node7" href="$class_set_field_statement.html" title=" " alt="" coords="232,203,363,228"/>
+<area shape="rect" id="node8" href="$class_set_statement.html" title=" " alt="" coords="246,252,349,277"/>
+<area shape="rect" id="node9" href="$class_stop_statement.html" title=" " alt="" coords="243,301,352,327"/>
+<area shape="rect" id="node2" href="$class_a_s_t.html" title=" " alt="" coords="5,153,53,179"/>
+</map>

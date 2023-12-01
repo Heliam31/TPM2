@@ -1,0 +1,68 @@
+#Name: disassembly
+#Label: Disassembly
+#Description: Machine instructions composing the program.
+0	1	00000504	main:
+0	1	00000504	stmdb sp!, {fp, lr}
+0	1	00000508	add fp, sp, #4
+0	1	0000050c	mov r0, #8
+0	1	00000510	bl 00000428
+0	2	00000514	mov r3, #0
+0	2	00000518	mov r0, r3
+0	2	0000051c	sub sp, fp, #4
+0	2	00000520	ldmia sp!, {fp, lr}
+0	2	00000524	bx lr
+1	1	00000428	binary_search:
+1	1	00000428	str fp, [sp, -#4]!
+1	1	0000042c	add fp, sp, #0
+1	1	00000430	sub sp, sp, #28
+1	1	00000434	str r0, [fp, -#24]
+1	1	00000438	mov r3, #0
+1	1	0000043c	str r3, [fp, -#16]
+1	1	00000440	mov r3, #14
+1	1	00000444	str r3, [fp, -#12]
+1	1	00000448	mvn r3, #0
+1	1	0000044c	str r3, [fp, -#8]
+1	1	00000450	b 000004dc
+1	2	000004dc	ldr r2, [fp, -#16]
+1	2	000004e0	ldr r3, [fp, -#12]
+1	2	000004e4	cmp r2, r3
+1	2	000004e8	ble 00000454
+1	3	00000454	ldr r2, [fp, -#16]
+1	3	00000458	ldr r3, [fp, -#12]
+1	3	0000045c	add r3, r2, r3
+1	3	00000460	mov r3, r3, asr #1
+1	3	00000464	str r3, [fp, -#20]
+1	3	00000468	ldr r2, [pc, #144]
+1	3	0000046c	ldr r3, [fp, -#20]
+1	3	00000470	ldr r3, [r2, r3, lsl #3]
+1	3	00000474	ldr r2, [fp, -#24]
+1	3	00000478	cmp r2, r3
+1	3	0000047c	bne 000004a8
+1	4	000004a8	ldr r2, [pc, #80]
+1	4	000004ac	ldr r3, [fp, -#20]
+1	4	000004b0	ldr r3, [r2, r3, lsl #3]
+1	4	000004b4	ldr r2, [fp, -#24]
+1	4	000004b8	cmp r2, r3
+1	4	000004bc	bge 000004d0
+1	5	000004d0	ldr r3, [fp, -#20]
+1	5	000004d4	add r3, r3, #1
+1	5	000004d8	str r3, [fp, -#16]
+1	6	000004c0	ldr r3, [fp, -#20]
+1	6	000004c4	sub r3, r3, #1
+1	6	000004c8	str r3, [fp, -#12]
+1	6	000004cc	b 000004dc
+1	7	00000480	ldr r3, [fp, -#16]
+1	7	00000484	sub r3, r3, #1
+1	7	00000488	str r3, [fp, -#12]
+1	7	0000048c	ldr r2, [pc, #108]
+1	7	00000490	ldr r3, [fp, -#20]
+1	7	00000494	mov r3, r3, lsl #3
+1	7	00000498	add r3, r2, r3
+1	7	0000049c	ldr r3, [r3, #4]
+1	7	000004a0	str r3, [fp, -#8]
+1	7	000004a4	b 000004dc
+1	8	000004ec	ldr r3, [fp, -#8]
+1	8	000004f0	mov r0, r3
+1	8	000004f4	add sp, fp, #0
+1	8	000004f8	ldr fp, [sp], #4
+1	8	000004fc	bx lr

@@ -1,0 +1,532 @@
+#Name: register
+#Label: Register Usage
+#Description: View read and written registers.
+0	1	000007ec	read r13, r11, r14, write r13
+0	1	000007f0	read r13, write r11
+0	1	000007f4	read r13, write r13
+0	1	000007f8	write r3
+0	1	000007fc	read r11, r3
+0	1	00000800	read r11, write r3
+0	1	00000804	read r3, write r3
+0	1	00000808	read r15, write r2
+0	1	0000080c	write r1
+0	1	00000810	read r2, r1, r3
+0	1	00000814	write r3
+0	1	00000818	write r2
+0	1	0000081c	read r11, write r1
+0	1	00000820	write r0
+0	1	00000824	write r14, r14
+0	2	00000828	read r0, write r3
+0	2	0000082c	read r11, r3
+0	2	00000830	read r11, write r3
+0	2	00000834	read r3, write r3
+0	2	00000838	read r3, write r3
+0	2	0000083c	read r3, write r2
+0	2	00000840	read r11, write r3
+0	2	00000844	read r3, write r3
+0	2	00000848	read r2, write r1
+0	2	0000084c	read r15, write r2
+0	2	00000850	read r2, r1, r3
+0	2	00000854	read r11, write r3
+0	2	00000858	read r3, write r3
+0	2	0000085c	read r11, write r2
+0	2	00000860	read r2, write r1
+0	2	00000864	read r15, write r2
+0	2	00000868	read r2, r1, r3
+0	2	0000086c	read r11, write r3
+0	2	00000870	read r3, write r1
+0	2	00000874	read r11, write r0
+0	2	00000878	write r3
+0	2	0000087c	write r2
+0	2	00000880	write r14, r14
+0	3	00000884	read r0, write r3
+0	3	00000888	read r11, r3
+0	3	0000088c	write r3
+0	3	00000890	read r3, write r0
+0	3	00000894	read r11, write r13
+0	3	00000898	read r13, write r13, r11, r14
+0	3	0000089c	read r14, write r15
+1	1	000004cc	read r13, r4, r11, r14, write r13
+1	1	000004d0	read r13, write r11
+1	1	000004d4	read r13, write r13
+1	1	000004d8	read r11, r1
+1	1	000004dc	read r11, r3
+1	1	000004e0	read r0, write r3
+1	1	000004e4	read r11, r3
+1	1	000004e8	read r2, write r3
+1	1	000004ec	read r11, r3
+1	1	000004f0	read r11, write r3
+1	1	000004f4	read r11, r3
+1	1	000004f8	read r15, write r3
+1	1	000004fc	read r3, write r3
+1	1	00000500	read r3, write sr
+1	1	00000504	read sr, write r14
+1	2	000005d4	read r11, write r3
+1	2	000005d8	read r3, write sr
+1	2	000005dc	read sr, write r14
+1	3	000005fc	read r11, write r3
+1	3	00000600	read r3, write sr
+1	3	00000604	read sr, write r14
+1	4	00000668	write r3
+1	4	0000066c	read r11, r3
+1	4	00000670	write r14
+1	5	0000073c	read r11, write r3
+1	5	00000740	read r11, write r2
+1	5	00000744	read r2, r3, write sr
+1	5	00000748	read sr, write r14
+1	6	00000674	read r11, write r3
+1	6	00000678	read r3, write sr
+1	6	0000067c	read sr, write r14
+1	7	000006bc	read r11, write r3
+1	7	000006c0	read r15, write r2
+1	7	000006c4	read r2, r3, write r2
+1	7	000006c8	read r11, write r3
+1	7	000006cc	read r3, write r3
+1	7	000006d0	read r3, write r3
+1	7	000006d4	read r3, write r3
+1	7	000006d8	read r3, write r3
+1	7	000006dc	read r3, r2, write r3
+1	7	000006e0	read r3, write r3
+1	7	000006e4	read r11, r3
+1	8	00000680	read r11, write r3
+1	8	00000684	read r15, write r2
+1	8	00000688	read r2, r3, write r3
+1	8	0000068c	read r3, write r2
+1	8	00000690	read r15, write r3
+1	8	00000694	read r3, r2, write r2
+1	8	00000698	read r11, write r3
+1	8	0000069c	read r3, write r3
+1	8	000006a0	read r3, write r3
+1	8	000006a4	read r3, write r3
+1	8	000006a8	read r3, write r3
+1	8	000006ac	read r3, r2, write r3
+1	8	000006b0	read r3, write r3
+1	8	000006b4	read r11, r3
+1	8	000006b8	write r14
+1	9	000006e8	read r11, write r3
+1	9	000006ec	read r15, write r2
+1	9	000006f0	read r3, write r3
+1	9	000006f4	read r2, r3, write r3
+1	9	000006f8	read r3, write r3
+1	9	000006fc	read r3, write r3
+1	9	00000700	read r3, write r2
+1	9	00000704	read r11, write r3
+1	9	00000708	read r3, write r3
+1	9	0000070c	read r3, write r3
+1	9	00000710	read r3, write r3
+1	9	00000714	read r3, write r3
+1	9	00000718	read r3, write r3
+1	9	0000071c	read r3, write r3
+1	9	00000720	read r3, r2, write r3
+1	9	00000724	read r3, write r3
+1	9	00000728	read r3, write r3
+1	9	0000072c	read r11, r3
+1	9	00000730	read r11, write r3
+1	9	00000734	read r3, write r3
+1	9	00000738	read r11, r3
+1	10	0000074c	read r11, write r3
+1	10	00000750	read r3, write sr
+1	10	00000754	read sr, write r14
+1	11	00000764	read r11, write r3
+1	11	00000768	read r3, write r3
+1	11	0000076c	read r3, write r3
+1	11	00000770	read r3, write r3
+1	11	00000774	read r3, write r3
+1	11	00000778	read r3, write r2
+1	11	0000077c	read r15, write r3
+1	11	00000780	read r3, r2, write r3
+1	11	00000784	read r3, write r3
+1	11	00000788	read r3, write r2
+1	11	0000078c	read r11, write r3
+1	11	00000790	read r3, write r3
+1	11	00000794	read r3, write r1
+1	11	00000798	read r15, write r3
+1	11	0000079c	read r3, r1, write r3
+1	11	000007a0	read r3, write r3
+1	11	000007a4	read r3, write r3
+1	11	000007a8	read r3, write r3
+1	11	000007ac	read r3, write r3
+1	11	000007b0	read r3, write r3
+1	11	000007b4	read r2, r3, write r3
+1	11	000007b8	read r3, write r3
+1	11	000007bc	read r3, write r3
+1	11	000007c0	read r11, r3
+1	12	00000758	read r11, write r3
+1	12	0000075c	read r11, r3
+1	12	00000760	write r14
+1	13	000007c4	read r11, write r3
+1	13	000007c8	read r3, write r0
+1	13	000007cc	read r11, write r13
+1	13	000007d0	read r13, write r13, r4, r11, r14
+1	13	000007d4	read r14, write r15
+1	14	00000608	read r11, write r3
+1	14	0000060c	read r3, write r3
+1	14	00000610	read r3, write r3
+1	14	00000614	read r3, write r3
+1	14	00000618	read r3, write r3
+1	14	0000061c	read r3, write r2
+1	14	00000620	read r15, write r3
+1	14	00000624	read r3, r2, write r3
+1	14	00000628	read r3, write r3
+1	14	0000062c	read r3, write r2
+1	14	00000630	read r11, write r3
+1	14	00000634	read r3, write r3
+1	14	00000638	read r3, write r1
+1	14	0000063c	read r15, write r3
+1	14	00000640	read r3, r1, write r3
+1	14	00000644	read r3, write r3
+1	14	00000648	read r3, write r3
+1	14	0000064c	read r3, write r3
+1	14	00000650	read r3, write r3
+1	14	00000654	read r3, write r3
+1	14	00000658	read r2, r3, write r3
+1	14	0000065c	read r3, write r3
+1	14	00000660	read r3, write r3
+1	14	00000664	read r11, r3
+1	15	000005e0	read r11, write r3
+1	15	000005e4	read r3, write r3
+1	15	000005e8	read r3, write r2
+1	15	000005ec	read r2, write r2
+1	15	000005f0	read r2, r3, write r3
+1	15	000005f4	read r11, r3
+1	15	000005f8	write r14
+1	16	00000508	read r15, write r3
+1	16	0000050c	write r2
+1	16	00000510	read r3, r2
+1	16	00000514	write r3
+1	16	00000518	read r11, r3
+1	16	0000051c	write r14
+1	17	000005c8	read r11, write r3
+1	17	000005cc	read r3, write sr
+1	17	000005d0	read sr, write r14
+1	18	00000520	read r11, write r3
+1	18	00000524	read r3, write r3
+1	18	00000528	read r3, write r3
+1	18	0000052c	read r3, write r3
+1	18	00000530	read r11, write r4
+1	18	00000534	write r1
+1	18	00000538	read r3, write r0
+1	18	0000053c	write r14, r14
+1	19	00000540	read r0, write r3
+1	19	00000544	read r3, write r1
+1	19	00000548	read r15, write r2
+1	19	0000054c	read r4, write r3
+1	19	00000550	read r2, r3, write r3
+1	19	00000554	read r3, r1
+1	19	00000558	read r11, write r3
+1	19	0000055c	read r3, write r3
+1	19	00000560	read r15, write r2
+1	19	00000564	read r2, r3, write r3
+1	19	00000568	read r3, write r3
+1	19	0000056c	read r3, write r3
+1	19	00000570	read r3, write r3
+1	19	00000574	read r3, write r3
+1	19	00000578	read r3, write r2
+1	19	0000057c	read r11, write r3
+1	19	00000580	read r3, write r3
+1	19	00000584	read r3, write r3
+1	19	00000588	read r3, write r3
+1	19	0000058c	read r3, write r1
+1	19	00000590	read r15, write r3
+1	19	00000594	read r3, r1, write r3
+1	19	00000598	read r3, write r3
+1	19	0000059c	read r3, write r3
+1	19	000005a0	read r2, r3, write r3
+1	19	000005a4	read r3, write r3
+1	19	000005a8	read r3, write r2
+1	19	000005ac	read r11, write r3
+1	19	000005b0	read r2, write r1
+1	19	000005b4	read r15, write r2
+1	19	000005b8	read r2, r1, r3
+1	19	000005bc	read r11, write r3
+1	19	000005c0	read r3, write r3
+1	19	000005c4	read r11, r3
+2	1	00000410	read r13, r11, write r13
+2	1	00000414	read r13, write r11
+2	1	00000418	read r13, write r13
+2	1	0000041c	read r0, write r3
+2	1	00000420	read r1, write r2
+2	1	00000424	read r11, r3
+2	1	00000428	read r2, write r3
+2	1	0000042c	read r11, r3
+2	1	00000430	read r11, write r3
+2	1	00000434	read r3, write r3
+2	1	00000438	read r3, write r3
+2	1	0000043c	read r3, write r3
+2	1	00000440	read r3, write r3
+2	1	00000444	read r3, write r2
+2	1	00000448	read r11, write r3
+2	1	0000044c	read r3, r2, write r3
+2	1	00000450	read r3, write r3
+2	1	00000454	read r3, write r3
+2	1	00000458	read r11, r3
+2	1	0000045c	write r3
+2	1	00000460	read r11, r3
+2	1	00000464	write r14
+2	2	000004ac	read r11, write r3
+2	2	000004b0	read r3, write sr
+2	2	000004b4	read sr, write r14
+2	3	00000468	read r11, write r3
+2	3	0000046c	read r3, write sr
+2	3	00000470	read sr, write r14
+2	4	00000494	read r11, write r3
+2	4	00000498	read r3, write r3
+2	4	0000049c	read r11, r3
+2	5	00000474	read r11, write r3
+2	5	00000478	read r3, write r3
+2	5	0000047c	read r11, r3
+2	5	00000480	read r11, write r3
+2	5	00000484	read r3, write r3
+2	5	00000488	read r3, write r3
+2	5	0000048c	read r11, r3
+2	5	00000490	write r14
+2	6	000004a0	read r11, write r3
+2	6	000004a4	read r3, write r3
+2	6	000004a8	read r11, r3
+2	7	000004b8	read r11, write r3
+2	7	000004bc	read r3, write r0
+2	7	000004c0	read r11, write r13
+2	7	000004c4	read r13, write r11, r13
+2	7	000004c8	read r14, write r15
+3	1	000004cc	read r13, r4, r11, r14, write r13
+3	1	000004d0	read r13, write r11
+3	1	000004d4	read r13, write r13
+3	1	000004d8	read r11, r1
+3	1	000004dc	read r11, r3
+3	1	000004e0	read r0, write r3
+3	1	000004e4	read r11, r3
+3	1	000004e8	read r2, write r3
+3	1	000004ec	read r11, r3
+3	1	000004f0	read r11, write r3
+3	1	000004f4	read r11, r3
+3	1	000004f8	read r15, write r3
+3	1	000004fc	read r3, write r3
+3	1	00000500	read r3, write sr
+3	1	00000504	read sr, write r14
+3	2	000005d4	read r11, write r3
+3	2	000005d8	read r3, write sr
+3	2	000005dc	read sr, write r14
+3	3	000005fc	read r11, write r3
+3	3	00000600	read r3, write sr
+3	3	00000604	read sr, write r14
+3	4	00000668	write r3
+3	4	0000066c	read r11, r3
+3	4	00000670	write r14
+3	5	0000073c	read r11, write r3
+3	5	00000740	read r11, write r2
+3	5	00000744	read r2, r3, write sr
+3	5	00000748	read sr, write r14
+3	6	00000674	read r11, write r3
+3	6	00000678	read r3, write sr
+3	6	0000067c	read sr, write r14
+3	7	000006bc	read r11, write r3
+3	7	000006c0	read r15, write r2
+3	7	000006c4	read r2, r3, write r2
+3	7	000006c8	read r11, write r3
+3	7	000006cc	read r3, write r3
+3	7	000006d0	read r3, write r3
+3	7	000006d4	read r3, write r3
+3	7	000006d8	read r3, write r3
+3	7	000006dc	read r3, r2, write r3
+3	7	000006e0	read r3, write r3
+3	7	000006e4	read r11, r3
+3	8	00000680	read r11, write r3
+3	8	00000684	read r15, write r2
+3	8	00000688	read r2, r3, write r3
+3	8	0000068c	read r3, write r2
+3	8	00000690	read r15, write r3
+3	8	00000694	read r3, r2, write r2
+3	8	00000698	read r11, write r3
+3	8	0000069c	read r3, write r3
+3	8	000006a0	read r3, write r3
+3	8	000006a4	read r3, write r3
+3	8	000006a8	read r3, write r3
+3	8	000006ac	read r3, r2, write r3
+3	8	000006b0	read r3, write r3
+3	8	000006b4	read r11, r3
+3	8	000006b8	write r14
+3	9	000006e8	read r11, write r3
+3	9	000006ec	read r15, write r2
+3	9	000006f0	read r3, write r3
+3	9	000006f4	read r2, r3, write r3
+3	9	000006f8	read r3, write r3
+3	9	000006fc	read r3, write r3
+3	9	00000700	read r3, write r2
+3	9	00000704	read r11, write r3
+3	9	00000708	read r3, write r3
+3	9	0000070c	read r3, write r3
+3	9	00000710	read r3, write r3
+3	9	00000714	read r3, write r3
+3	9	00000718	read r3, write r3
+3	9	0000071c	read r3, write r3
+3	9	00000720	read r3, r2, write r3
+3	9	00000724	read r3, write r3
+3	9	00000728	read r3, write r3
+3	9	0000072c	read r11, r3
+3	9	00000730	read r11, write r3
+3	9	00000734	read r3, write r3
+3	9	00000738	read r11, r3
+3	10	0000074c	read r11, write r3
+3	10	00000750	read r3, write sr
+3	10	00000754	read sr, write r14
+3	11	00000764	read r11, write r3
+3	11	00000768	read r3, write r3
+3	11	0000076c	read r3, write r3
+3	11	00000770	read r3, write r3
+3	11	00000774	read r3, write r3
+3	11	00000778	read r3, write r2
+3	11	0000077c	read r15, write r3
+3	11	00000780	read r3, r2, write r3
+3	11	00000784	read r3, write r3
+3	11	00000788	read r3, write r2
+3	11	0000078c	read r11, write r3
+3	11	00000790	read r3, write r3
+3	11	00000794	read r3, write r1
+3	11	00000798	read r15, write r3
+3	11	0000079c	read r3, r1, write r3
+3	11	000007a0	read r3, write r3
+3	11	000007a4	read r3, write r3
+3	11	000007a8	read r3, write r3
+3	11	000007ac	read r3, write r3
+3	11	000007b0	read r3, write r3
+3	11	000007b4	read r2, r3, write r3
+3	11	000007b8	read r3, write r3
+3	11	000007bc	read r3, write r3
+3	11	000007c0	read r11, r3
+3	12	00000758	read r11, write r3
+3	12	0000075c	read r11, r3
+3	12	00000760	write r14
+3	13	000007c4	read r11, write r3
+3	13	000007c8	read r3, write r0
+3	13	000007cc	read r11, write r13
+3	13	000007d0	read r13, write r13, r4, r11, r14
+3	13	000007d4	read r14, write r15
+3	14	00000608	read r11, write r3
+3	14	0000060c	read r3, write r3
+3	14	00000610	read r3, write r3
+3	14	00000614	read r3, write r3
+3	14	00000618	read r3, write r3
+3	14	0000061c	read r3, write r2
+3	14	00000620	read r15, write r3
+3	14	00000624	read r3, r2, write r3
+3	14	00000628	read r3, write r3
+3	14	0000062c	read r3, write r2
+3	14	00000630	read r11, write r3
+3	14	00000634	read r3, write r3
+3	14	00000638	read r3, write r1
+3	14	0000063c	read r15, write r3
+3	14	00000640	read r3, r1, write r3
+3	14	00000644	read r3, write r3
+3	14	00000648	read r3, write r3
+3	14	0000064c	read r3, write r3
+3	14	00000650	read r3, write r3
+3	14	00000654	read r3, write r3
+3	14	00000658	read r2, r3, write r3
+3	14	0000065c	read r3, write r3
+3	14	00000660	read r3, write r3
+3	14	00000664	read r11, r3
+3	15	000005e0	read r11, write r3
+3	15	000005e4	read r3, write r3
+3	15	000005e8	read r3, write r2
+3	15	000005ec	read r2, write r2
+3	15	000005f0	read r2, r3, write r3
+3	15	000005f4	read r11, r3
+3	15	000005f8	write r14
+3	16	00000508	read r15, write r3
+3	16	0000050c	write r2
+3	16	00000510	read r3, r2
+3	16	00000514	write r3
+3	16	00000518	read r11, r3
+3	16	0000051c	write r14
+3	17	000005c8	read r11, write r3
+3	17	000005cc	read r3, write sr
+3	17	000005d0	read sr, write r14
+3	18	00000520	read r11, write r3
+3	18	00000524	read r3, write r3
+3	18	00000528	read r3, write r3
+3	18	0000052c	read r3, write r3
+3	18	00000530	read r11, write r4
+3	18	00000534	write r1
+3	18	00000538	read r3, write r0
+3	18	0000053c	write r14, r14
+3	19	00000540	read r0, write r3
+3	19	00000544	read r3, write r1
+3	19	00000548	read r15, write r2
+3	19	0000054c	read r4, write r3
+3	19	00000550	read r2, r3, write r3
+3	19	00000554	read r3, r1
+3	19	00000558	read r11, write r3
+3	19	0000055c	read r3, write r3
+3	19	00000560	read r15, write r2
+3	19	00000564	read r2, r3, write r3
+3	19	00000568	read r3, write r3
+3	19	0000056c	read r3, write r3
+3	19	00000570	read r3, write r3
+3	19	00000574	read r3, write r3
+3	19	00000578	read r3, write r2
+3	19	0000057c	read r11, write r3
+3	19	00000580	read r3, write r3
+3	19	00000584	read r3, write r3
+3	19	00000588	read r3, write r3
+3	19	0000058c	read r3, write r1
+3	19	00000590	read r15, write r3
+3	19	00000594	read r3, r1, write r3
+3	19	00000598	read r3, write r3
+3	19	0000059c	read r3, write r3
+3	19	000005a0	read r2, r3, write r3
+3	19	000005a4	read r3, write r3
+3	19	000005a8	read r3, write r2
+3	19	000005ac	read r11, write r3
+3	19	000005b0	read r2, write r1
+3	19	000005b4	read r15, write r2
+3	19	000005b8	read r2, r1, r3
+3	19	000005bc	read r11, write r3
+3	19	000005c0	read r3, write r3
+3	19	000005c4	read r11, r3
+4	1	00000410	read r13, r11, write r13
+4	1	00000414	read r13, write r11
+4	1	00000418	read r13, write r13
+4	1	0000041c	read r0, write r3
+4	1	00000420	read r1, write r2
+4	1	00000424	read r11, r3
+4	1	00000428	read r2, write r3
+4	1	0000042c	read r11, r3
+4	1	00000430	read r11, write r3
+4	1	00000434	read r3, write r3
+4	1	00000438	read r3, write r3
+4	1	0000043c	read r3, write r3
+4	1	00000440	read r3, write r3
+4	1	00000444	read r3, write r2
+4	1	00000448	read r11, write r3
+4	1	0000044c	read r3, r2, write r3
+4	1	00000450	read r3, write r3
+4	1	00000454	read r3, write r3
+4	1	00000458	read r11, r3
+4	1	0000045c	write r3
+4	1	00000460	read r11, r3
+4	1	00000464	write r14
+4	2	000004ac	read r11, write r3
+4	2	000004b0	read r3, write sr
+4	2	000004b4	read sr, write r14
+4	3	00000468	read r11, write r3
+4	3	0000046c	read r3, write sr
+4	3	00000470	read sr, write r14
+4	4	00000494	read r11, write r3
+4	4	00000498	read r3, write r3
+4	4	0000049c	read r11, r3
+4	5	00000474	read r11, write r3
+4	5	00000478	read r3, write r3
+4	5	0000047c	read r11, r3
+4	5	00000480	read r11, write r3
+4	5	00000484	read r3, write r3
+4	5	00000488	read r3, write r3
+4	5	0000048c	read r11, r3
+4	5	00000490	write r14
+4	6	000004a0	read r11, write r3
+4	6	000004a4	read r3, write r3
+4	6	000004a8	read r11, r3
+4	7	000004b8	read r11, write r3
+4	7	000004bc	read r3, write r0
+4	7	000004c0	read r11, write r13
+4	7	000004c4	read r13, write r11, r13
+4	7	000004c8	read r14, write r15

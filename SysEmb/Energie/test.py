@@ -16,6 +16,6 @@ def show_csv(filename, norm=False):
         a = tmp
     a.plot(x='#timestamp', title =filename)
 
-show_csv('/home/heliam/TPM2/SysEmb/Energie/dataSel.csv', norm=False)
-show_csv('/home/heliam/TPM2/SysEmb/Energie/dataBul.csv', norm=False)
+show_csv('/home/heliam/TPM2/SysEmb/Energie/data.csv', norm=False)
+show_csv('/home/heliam/TPM2/SysEmb/Energie/dataJul  .csv', norm=False)
 plt.show(block=True)
