@@ -1,0 +1,290 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3cc11d24.ff01a2",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "WARNING: please check you have started this container with a volume that is mounted to /data\\n otherwise any flow changes are lost when you redeploy or upgrade the container\\n (e.g. upgrade to a more recent node-red docker image).\\n  If you are using named volumes you can ignore this warning.\\n Double click or see info side panel to learn how to start Node-RED in Docker to save your work",
+        "info": "\nTo start docker with a bind mount volume (-v option), for example:\n\n```\ndocker run -it -p 1880:1880 -v /home/user/node_red_data:/data --name mynodered nodered/node-red\n```\n\nwhere `/home/user/node_red_data` is a directory on your host machine where you want to store your flows.\n\nIf you do not do this then you can experiment and redploy flows, but if you restart or upgrade the container the flows will be disconnected and lost. \n\nThey will still exist in a hidden data volume, which can be recovered using standard docker techniques, but that is much more complex than just starting with a named volume as described above.",
+        "x": 350,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "76215a5b25879f35",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "recup",
+        "topic": "TestTopic/lora/neOCampus/DEADDEAD00090001",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "48cac4b142eb2dc9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 480,
+        "wires": [
+            [
+                "39422004edd7523e",
+                "41ccb10cf45e6b03"
+            ]
+        ]
+    },
+    {
+        "id": "39422004edd7523e",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 2",
+        "func": "class NeoCayenneLPPDecoder {\n    static decode(data) {\n        let version = data[0];\n        let payloadLength = data[1];\n\n        let tuples = [];\n        let i = 2;\n        while (i < data.length) {\n            let type_ = data[i];\n            let channel = data[i + 1];\n            let value = data.slice(i + 2, i + 2 + this.getTypeSize(type_));\n\n            tuples.push({ type_, channel, value: value.toString('hex') });\n            i += 2 + this.getTypeSize(type_);\n        }\n\n        return { version, payloadLength, tuples };\n    }\n\n    static getTypeSize(type_) {\n        const sizeMap = {\n            0: 2,  // LPP_RAW\n            1: 2,  // LPP_RAW_ANALOG\n            2: 4,  // LPP_RAW_ANALOG_EXT\n            3: 1,  // LPP_RAW_DIGITAL\n            4: 2,  // LPP_LUMINOSITY\n            5: 1,  // LPP_PRESENCE\n            6: 2,  // LPP_FREQUENCY\n            7: 1,  // LPP_TEMPERATURE\n            8: 1,  // LPP_HUMIDITY\n            9: 2,  // LPP_CO2\n            10: 2, // LPP_RAW_AIR_QUALITY\n            11: 9, // LPP_RAW_GPS\n            12: 2, // LPP_ENERGY\n            13: 2, // LPP_ENERGY_SOLAR\n            14: 2, // LPP_ENERGY_WATT\n            15: 1, // LPP_ENERGY_VOLT\n            16: 1, // LPP_ENERGY_AMP\n            17: 2, // LPP_ENERGY_PHASE\n            20: 1, // LPP_UV\n            21: 1, // LPP_UV_ENERGY\n            22: 2, // LPP_WEIGHT\n            23: 1  // LPP_PRESSURE\n            // ... Ajoutez d'autres types au besoin\n        };\n\n        return sizeMap[type_] || 0;\n    }\n}\n\nvar loraReturn = msg.payload.data;\nvar msgB = (parseInt(loraReturn, 16).toString(2)).padStart(8, '0');\n\nvar byteArray = Buffer.from(loraReturn, 'hex');\nvar decodedData = NeoCayenneLPPDecoder.decode(byteArray);\n\nvar m2s = {\n        payload : decodedData\n        };\n\nreturn m2s;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 440,
+        "wires": [
+            [
+                "a9aa7224191aba93",
+                "a5d24e5dc0179ce0",
+                "55a723d063fbf7e3",
+                "f2d30df163bfc975"
+            ]
+        ]
+    },
+    {
+        "id": "41ccb10cf45e6b03",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 310,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "55a723d063fbf7e3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 3",
+        "func": "var tempe = 0\nfor(let i = 0; i<=2; i++){\n        if(msg.payload.tuples[i].type_ == 7){\n                tempe = parseInt(msg.payload.tuples[i].value,16);\n        }\n}\n\n\nvar m2s = {\n        payload : (tempe*0.25)+20\n        };\n\nreturn m2s;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 440,
+        "wires": [
+            [
+                "3fed6f61ad20bf62"
+            ]
+        ]
+    },
+    {
+        "id": "a9aa7224191aba93",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 4",
+        "func": "var humi = 0\nfor(let i = 0; i<=2; i++){\n        if(msg.payload.tuples[i].type_ == 8){\n                humi = parseInt(msg.payload.tuples[i].value,16);\n        }\n}\n\n\nvar m2s = {\n        payload : (humi*0.5)\n                };\n\nreturn m2s;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 480,
+        "wires": [
+            [
+                "e77bd12a4a57903b"
+            ]
+        ]
+    },
+    {
+        "id": "a5d24e5dc0179ce0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 5",
+        "func": "var press = 0\nfor (let i = 0; i <= 2; i++) {\n        if (msg.payload.tuples[i].type_ == 23) {\n                press = parseInt(msg.payload.tuples[i].value, 16);\n        }\n}\n\n\nvar m2s = {\n        payload: (press + 990)\n};\n\nreturn m2s;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 520,
+        "wires": [
+            [
+                "340c7e92124fc27d"
+            ]
+        ]
+    },
+    {
+        "id": "3fed6f61ad20bf62",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "469576e480ea72f3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Température",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "-10",
+        "max": "40",
+        "colors": [
+            "#99c1f1",
+            "#f8e45c",
+            "#ca3838"
+        ],
+        "seg1": "5",
+        "seg2": "25",
+        "diff": false,
+        "className": "",
+        "x": 750,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e77bd12a4a57903b",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "469576e480ea72f3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidité",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 740,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "340c7e92124fc27d",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "469576e480ea72f3",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Pression",
+        "label": "hPa",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1500",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 740,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "f2d30df163bfc975",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "48cac4b142eb2dc9",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "neocampus.univ-tlse3.fr",
+        "port": "1883",
+        "clientid": "testMihaiSub",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "469576e480ea72f3",
+        "type": "ui_group",
+        "name": "grp1",
+        "tab": "355276aea0b071a2",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "355276aea0b071a2",
+        "type": "ui_tab",
+        "name": "tab2",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

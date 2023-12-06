@@ -34,6 +34,44 @@ void init_servo(){
 	TIM3_CR1 = TIM_CEN|TIM_ARPE;
 }
 
+volatile int TIM4_triggered = 0;
+
+void handle_TIM4()  {   //handle l'interruption
+	TIM4_SR = ~TIM_UIF;
+	TIM4_ARR = 50000;
+	printf("handled");
+	TIM4_triggered = 1;
+	
+}
+
+void init_TIM4(){
+	DISABLE_IRQS;
+
+	//NVIC
+	NVIC_ICER(TIM4_IRQ >> 5) = 1 << (TIM4_IRQ & 0X1f);
+	NVIC_IRQ(TIM4_IRQ) = (uint32_t)handle_TIM4;
+	NVIC_IPR(TIM4_IRQ) = 0;
+
+	//purge IRQ
+	NVIC_ICPR(TIM4_IRQ >> 5) = 1<<(TIM4_IRQ & 0X1f);
+
+	//configure TIM4
+	TIM4_CR1 = 0;
+	TIM4_PSC = 1000-1;
+	TIM4_ARR =  50000;
+	//reset Timer
+	TIM4_EGR = TIM_UG;
+	TIM4_SR = 0;
+
+	//enable IRQ
+	NVIC_ISER(TIM4_IRQ >> 5) = 1 <<(TIM4_IRQ & 0X1f);
+	TIM4_DIER = TIM_UIE;
+
+	//start
+	ENABLE_IRQS;
+	TIM4_CR1 = TIM_CEN;
+}
+
 void set_servo(int n){
 	TIM3_CCR1 = (60000/20) + (n*60000/20/180);
 	}
@@ -49,20 +87,39 @@ int main() {
 
 	// initialization
 	init_servo();
-
+	init_TIM4();
+	int val = 0;
+	int decrem = 0;
 	// main loop
 	printf("Endless loop!\n");
 	while(1) {
-		set_servo(0);
-		printf("0!\n");
-		for (int i = 0; i< 100000000; i++){
-			NOP;
+		if(TIM4_triggered){
+			printf("triggered");
+			TIM4_triggered = 0;
+			if(val == 180){
+				decrem = 1;
+				val = 170;
+				set_servo(val);
+				printf("%d!\n", val);
+				}
+			else if(val == 0){
+				decrem = 0;
+				val = 10;
+				set_servo(val);
+				printf("%d!\n", val);
+			}
+			else if(decrem == 0){
+				val += 10;
+				set_servo(val);
+				printf("%d!\n", val);
+			}
+			else if(decrem == 1){
+				val -= 10;
+				set_servo(val);
+				printf("%d!\n", val);
+			}
 		}
-		set_servo(180);
-		printf("180!\n");
-		for (int i = 0; i< 100000000; i++){
-			NOP;
-		}
+
 	}
 
 }
