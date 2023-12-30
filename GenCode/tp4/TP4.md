@@ -92,7 +92,7 @@ Les fonctions suivantes sont disponibles et seront utiles pour la suite :
 Pour l'instant, l'allocation de registre ne fait rien : il recopie la séquence d'instruction qui lui est passé en paramètre. Il va falloir que vous développiez les fonctions manquantes.
 
 **TODO**
-
+ 
 1. Développez la fonction `allocate`(_r_) qui renvoie le registre matériel associé avec le registre virtuel _r_ qui sera, si nécessaire, alloué. S'il ne reste plus de registre, on pourra lever une erreur avec le code.
 
     ```C++

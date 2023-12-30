@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 #include "RegAlloc.hpp"
-
+/*make clean; make; ./ioc -print-alloc test/zero.io*/
 /**
  * @class StackMapper
  * Map the variable to stack offset.
@@ -97,7 +97,15 @@ RegAlloc::RegAlloc(StackMapper& mapper, list<Inst>& insts)
  * @param inst		Instruction sto process.
  */
 void RegAlloc::process(Inst inst) {
+	for (int i = 0; i < inst.param_num; i++){
+        Param& param = inst[i];
+        if(param.type() == Param::READ)
+            processRead(param);
+        else if(param.type() == Param::WRITE)
+            processWrite(param);
 
+        inst[i] = param;
+    }
 	// add the fixed instruction
 	_insts.push_back(inst);
 	_fried.clear();
@@ -107,6 +115,8 @@ void RegAlloc::process(Inst inst) {
  * Complete the allocation of a BB by generating store of modified global variables.
  */
 void RegAlloc::complete() {
+	for (Quad::reg_t r : _written)
+        store(r);
 }
 
 /**
@@ -115,6 +125,10 @@ void RegAlloc::complete() {
  */
 void RegAlloc::processRead(Param& param) {
 	assert("parameter should be a read parameter!" && param.type() == Param::READ);
+	Quad::reg_t rVal = param.value();
+    Quad::reg_t reg = allocate(rVal);
+    param = param.read(reg);
+    load(reg);
 }
 
 /**
@@ -122,6 +136,12 @@ void RegAlloc::processRead(Param& param) {
  * @param param		Parameter to fix.
  */
 void RegAlloc::processWrite(Param& param) {
+	assert("parameter should be a write parameter!" && param.type() == Param::WRITE);
+    Quad::reg_t rVal = param.value();
+    Quad::reg_t reg = allocate(rVal);
+    param = param.write(reg);
+    if (isVar(reg))
+        _written.push_back(reg);
 }
 
 /**
@@ -129,10 +149,19 @@ void RegAlloc::processWrite(Param& param) {
  * to get a new free hardware register.
  */
 Quad::reg_t RegAlloc::allocate(Quad::reg_t reg) {
-	Quad::reg_t r;
-
-
-	return r;
+	if (isVar(reg) == 1){
+		return _map[reg];
+	}
+	else{
+		if (_avail.empty()){
+			 assert("no more registers available!" && false);
+		}
+		else{
+			_map[reg] = _avail.back();
+			_avail.pop_back();
+			return _map[reg];
+		}
+	}
 }
 
 /**
@@ -150,6 +179,8 @@ void RegAlloc::spill(Quad::reg_t reg) {
  * @param reg	Virtual register to free.
  */
 void RegAlloc::free(Quad::reg_t reg) {
+	_avail.push_back(_map[reg]);
+	_map.erase(reg);
 }
 
 /**
@@ -170,7 +201,7 @@ void RegAlloc::store(Quad::reg_t reg) {
 void RegAlloc::load(Quad::reg_t reg) {
 	auto hreg = _map[reg];
 	auto offset = _mapper.offsetOf(reg);
-	_insts.push_back(Inst("\tldr R%0, [SP, #%1]", Param::write(hreg), Param::cst(offset)));
+	_insts.push_back(Inst("\tldr R%0, [writeSP, #%1]", Param::write(hreg), Param::cst(offset)));
 }
 
 /**

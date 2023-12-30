@@ -1,0 +1,10 @@
+ 
+oarsub -I -l walltime=2:0:0 -p "cluster='gros'"
+
+sudo-g5k ./mojitos -r -f 10 -o /tmp/dataPyJul.csv & pid=$! ;python3 /home/mpoitelea/python/julia.py ; sudo kill $pid
+
+
+
+
+g++ -std=c++20 -Wall -Wextra -pedantic julia.cpp -o julia -lSDL2main -lSDL2
+./mojitos/bin -r -f 10 -o /tmp/dataJulC.csv & pid=$! ; ./julia ; sudo kill $pid
